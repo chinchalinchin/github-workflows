@@ -1,0 +1,17 @@
+name: TF Pipeline
+
+on:
+  workflow_dispatch:
+
+jobs:
+  Release:
+    uses: ./.github/workflows/terraform.yml
+
+  Scan:
+    uses: ./.github/workflows/scan.yml
+
+  TFLint:
+    uses: ./.github/workflows/lint.yml
+
+  TF-Docs:
+    uses: ./.github/workflows/terraform-docs.yml
