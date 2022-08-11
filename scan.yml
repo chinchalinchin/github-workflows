@@ -1,5 +1,7 @@
 name: Scan
 
+on: workflow_call
+
 jobs:
   Checkov:
     runs-on: [self-hosted]

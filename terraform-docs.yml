@@ -1,5 +1,7 @@
 name: Generate terraform docs
 
+on: workflow_call
+
 jobs:
   TF-Docs:
     runs-on: [self-hosted]

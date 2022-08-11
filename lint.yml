@@ -1,5 +1,7 @@
 name: Lint
 
+on: workflow_call
+
 jobs:
   TFLint:
     runs-on: [self-hosted]
