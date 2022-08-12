@@ -25,4 +25,4 @@ jobs:
         uses: actions/checkout@master
       
       - name: tfsec
-        uses: aquasecurity/tfsec-action@v1.0.0
+        run: tfsec .
