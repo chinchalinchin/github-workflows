@@ -2,7 +2,7 @@ name: Scan
 
 on: workflow_call
 
-#jobs:
+jobs:
 #  Checkov:
 #    runs-on: [self-hosted]
 #    steps:
@@ -17,7 +17,6 @@ on: workflow_call
 #          framework: terraform
 #          output_format: sarif # options: cli, json, junitxml, github_failed_only, or sarif
 #          # Additional paramaters can be found at: github.com/bridgecrewio/checkov-action/blob/master/action.yml
-  
   tfsec:
     name: tfsec
     runs-on: [self-hosted]
