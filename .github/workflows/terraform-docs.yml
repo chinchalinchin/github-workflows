@@ -11,4 +11,8 @@ jobs:
           ref: ${{ github.event.pull_request.head.ref }}
 
       - name: TF Docs
-        run: terraform-docs markdown table --output-file docs.md --output-mode inject .
+        run: terraform-docs markdown table --output-file README.md --output-mode replace .
+
+      - name: Git Actions
+        run: git status
+        run: git add .
