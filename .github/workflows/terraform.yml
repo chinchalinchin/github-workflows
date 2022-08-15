@@ -10,11 +10,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      # This step can be removed if self-hosted runners have 
-      # terraform installed
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v1
-
       - name: Terraform Plan
         if: github.event_name == 'pull_request'
         run: terraform plan -no-color -input=false

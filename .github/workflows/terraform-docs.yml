@@ -10,10 +10,5 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.ref }}
 
-      - name: Create terraform docs and push changes back to PR
-        uses: terraform-docs/gh-actions@main
-        with:
-          working-dir: .
-          output-file: README.md
-          output-method: inject
-          git-push: "true"
+      - name: TF Docs
+        run: terraform-docs markdown table --output-file docs.md --output-mode inject .
