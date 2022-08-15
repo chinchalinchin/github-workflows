@@ -13,6 +13,11 @@ jobs:
       - name: TF Docs
         run: terraform-docs markdown table --output-file README.md --output-mode replace .
 
+      - uses: actions/upload-artifact@v3
+        with:
+          name: README.md
+          path: README.md
+
       - run: git status
 
       - run: git add .
