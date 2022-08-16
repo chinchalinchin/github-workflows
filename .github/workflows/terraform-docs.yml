@@ -8,11 +8,20 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - run: MODS=$(ls modules/)
+      - runs: pushd modules/
+
+      - run: MODS=$(ls)
 
       - name: Build TF Docs in modules/ directory
         run: |
-          for m in $MODS; do terraform-docs markdown table --output-file module/${m}/README.md --output-mode replace module/${m}; done
+          for m in $MODS; 
+          do
+            echo ${m}
+            pushd ${m}
+            terraform-docs markdown table --output-file README.md --output-mode replace . ;
+            popd
+          done
+          popd
 
       - run: git status
 
