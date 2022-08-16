@@ -7,16 +7,12 @@ jobs:
     runs-on: [self-hosted]
     steps:
       - uses: actions/checkout@v3
-        with:
-          ref: ${{ github.event.pull_request.head.ref }}
 
-      - name: TF Docs
-        run: terraform-docs markdown table --output-file README.md --output-mode replace .
+      - run: MODS=$(ls modules/)
 
-      - uses: actions/upload-artifact@v3
-        with:
-          name: README.md
-          path: README.md
+      - name: Build TF Docs in modules/ directory
+        run: |
+          for m in $MODS; do terraform-docs markdown table --output-file module/${m}/README.md --output-mode replace module/${m}; done
 
       - run: git status
 
