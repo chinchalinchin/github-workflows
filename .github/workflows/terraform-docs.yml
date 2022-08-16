@@ -23,10 +23,8 @@ jobs:
           done
           popd
 
-      - run: git checkout -b docs
-
-      - run: git status -u
-
-      - run: git add -A
-
-      - run: git commit -m "auto-update from terraform-docs"
+      - uses: actions/upload-artifact@v3
+        with:
+          path: |
+            README.md
+            modules/*/README.md
