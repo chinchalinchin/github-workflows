@@ -1,14 +1,11 @@
 # actions-workflows
-A set of GitHub Action workflows to be used by Automation Library.
+A set of GitHub Action workflows developed by Automation Library.
 # Targeted Pipelines
-Jobs
-|
-|__TF Docs
-|
-|__ Release
-    |
-    |__TF Plan -> TF Apply
-|
-|__Terratest
-|
-|__Linting
+* TF Docs
+* Release
+    * TF Plan -> TF Apply
+* Scan
+    * Checkhov
+    * tfsec
+* TFLint
+* Terratest

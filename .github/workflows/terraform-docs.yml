@@ -9,8 +9,24 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Build TF Docs for root directory
-        run: terraform-docs markdown table --recursive --recursive-path modules --output-file README.md --output-mode replace .
+        run: terraform-docs markdown table --output-file README.md .
 
-      - run: git status
+      - name: Build TF Docs for modules directory
+        run: |
+          MODS=$(ls modules/)
+          pushd modules/
+          for m in $MODS
+          do
+            pushd $m
+            terraform-docs markdown table --output-file README.md .
+            popd
+          done
+          popd
 
-      - run: git add .
+      - run: git checkout -b docs
+
+      - run: git status -u
+
+      - run: git add -A
+
+      - run: git commit -m "auto-update from terraform-docs"
