@@ -11,7 +11,7 @@ jobs:
       - name: Build TF Docs for root directory
         run: terraform-docs markdown table --output-file README.md --output-mode replace .
 
-      - runs: pushd modules/
+      - run: pushd modules/
 
       - run: MODS=$(ls)
 
