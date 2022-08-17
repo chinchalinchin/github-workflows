@@ -5,6 +5,9 @@ on: workflow_call
 jobs:
   TF-Docs:
     runs-on: [self-hosted]
+    env:
+      USERNAME: ${{ secrets.ACTIONS_USERNAME }}
+      EMAIL: ${{ secrets.ACTIONS_EMAIL }}
     steps:
       - uses: actions/checkout@v3
 
