@@ -20,7 +20,7 @@ jobs:
     steps:
       - name:
         run: |
-          git clone --depth 1 https://${TOKEN}:x-oauth-basic@github.boozallencsn.com/AutomationLibrary/aws-synthetics-heartbeat-canary.git
+          git clone --depth 1 https://${USERNAME}:${TOKEN}@github.boozallencsn.com/AutomationLibrary/aws-synthetics-heartbeat-canary.git
           cd aws-synthetics-heartbeat-canary
       # - name: Clone repo
       #   uses: actions/checkout@v3.0.2
@@ -36,7 +36,7 @@ jobs:
     steps:
       - name:
         run: |
-          git clone --depth 1 https://${TOKEN}:x-oauth-basic@github.boozallencsn.com/AutomationLibrary/aws-synthetics-heartbeat-canary.git
+          git clone --depth 1 https://${USERNAME}:${TOKEN}@github.boozallencsn.com/AutomationLibrary/aws-synthetics-heartbeat-canary.git
           cd aws-synthetics-heartbeat-canary
 
       # - name: Clone repo
