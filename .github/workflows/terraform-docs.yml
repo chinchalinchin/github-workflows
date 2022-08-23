@@ -4,12 +4,19 @@ on: workflow_call
 
 jobs:
   tfdocs:
-    runs-on: [self-hosted]
+    runs-on: debian
     env:
       USERNAME: ${{ secrets.ACTIONS_USERNAME }}
       EMAIL: ${{ secrets.ACTIONS_EMAIL }}
     steps:
       - uses: actions/checkout@v3
+
+      - name: Setup TF Docs
+        run: |
+          curl -sSLo ./terraform-docs.tar.gz https://terraform-docs.io/dl/v0.16.0/terraform-docs-v0.16.0-$(uname)-amd64.tar.gz
+          tar -xzf terraform-docs.tar.gz
+          chmod +x terraform-docs
+          mv terraform-docs /usr/local/bin/
 
       - name: Build TF Docs for root directory
         run: terraform-docs markdown table --output-file README.md .
