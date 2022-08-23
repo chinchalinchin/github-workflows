@@ -11,6 +11,9 @@ on:
 jobs:
   checkov:
     runs-on: [self-hosted]
+    env:
+      USERNAME: ${{ secrets.ACTIONS_USERNAME }}
+      EMAIL: ${{ secrets.ACTIONS_EMAIL }}
     steps:
       - name:
         run: |
@@ -18,10 +21,6 @@ jobs:
           git config user.email $EMAIL
           git clone --depth 1 https://github.boozallencsn.com/AutomationLibrary/aws-synthetics-heartbeat-canary.git
           cd aws-synthetics-heartbeat-canary
-        with:
-          USERNAME: ${{ secrets.ACTIONS_USERNAME }}
-          EMAIL: ${{ secrets.ACTIONS_EMAIL }}
-
       # - name: Clone repo
       #   uses: actions/checkout@v3.0.2
       
@@ -30,6 +29,9 @@ jobs:
   
   tfsec:
     runs-on: [self-hosted]
+    env:
+      USERNAME: ${{ secrets.ACTIONS_USERNAME }}
+      EMAIL: ${{ secrets.ACTIONS_EMAIL }}
     steps:
       - name:
         run: |
@@ -37,9 +39,6 @@ jobs:
           git config user.email $EMAIL
           git clone --depth 1 https://github.boozallencsn.com/AutomationLibrary/aws-synthetics-heartbeat-canary.git
           cd aws-synthetics-heartbeat-canary
-        with:
-          USERNAME: ${{ secrets.ACTIONS_USERNAME }}
-          EMAIL: ${{ secrets.ACTIONS_EMAIL }}
 
       # - name: Clone repo
       #   uses: actions/checkout@v3.0.2
