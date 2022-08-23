@@ -9,10 +9,6 @@ on:
         required: True
       ACTIONS_PAT:
         required: True
-      ACTIONS_RUNNER_DEBUG:
-        required: True
-      ACTIONS_STEP_DEBUG:
-        required: True
 
 jobs:
   # checkout:
