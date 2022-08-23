@@ -1,6 +1,12 @@
 name: Scan
 
-on: workflow_call
+on: 
+  workflow_call:
+    secrets:
+      ACTIONS_USERNAME:
+        required: True
+      ACTIONS_EMAIL:
+        required: True
 
 jobs:
   checkov:
