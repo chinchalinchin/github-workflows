@@ -19,7 +19,7 @@ jobs:
           export terraform-docs=${pwd}/terraform-docs
 
       - name: Build TF Docs for root directory
-        run: terraform-docs markdown table --output-file README.md .
+        run: $terraform-docs markdown table --output-file README.md .
 
       - name: Build TF Docs for modules directory
         run: |
@@ -28,7 +28,7 @@ jobs:
           for m in $MODS
           do
             pushd $m
-            terraform-docs markdown table --output-file README.md .
+            $terraform-docs markdown table --output-file README.md .
             popd
           done
           popd
