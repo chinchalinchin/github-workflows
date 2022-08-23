@@ -7,6 +7,8 @@ on:
         required: True
       ACTIONS_EMAIL:
         required: True
+      ACTIONS_PAT:
+        required: True
 
 jobs:
   checkov:
@@ -14,15 +16,11 @@ jobs:
     env:
       USERNAME: ${{ secrets.ACTIONS_USERNAME }}
       EMAIL: ${{ secrets.ACTIONS_EMAIL }}
+      TOKEN: ${{ secrets.ACTIONS_PAT }}
     steps:
       - name:
         run: |
-          mkdir tmp
-          cd tmp
-          git init
-          git config user.name $USERNAME
-          git config user.email $EMAIL
-          git clone --depth 1 https://github.boozallencsn.com/AutomationLibrary/aws-synthetics-heartbeat-canary.git
+          git clone --depth 1 https://${TOKEN}:x-oauth-basic@github.boozallencsn.com/AutomationLibrary/aws-synthetics-heartbeat-canary.git
           cd aws-synthetics-heartbeat-canary
       # - name: Clone repo
       #   uses: actions/checkout@v3.0.2
@@ -38,12 +36,7 @@ jobs:
     steps:
       - name:
         run: |
-          mkdir tmp
-          cd tmp
-          git init
-          git config user.name $USERNAME
-          git config user.email $EMAIL
-          git clone --depth 1 https://github.boozallencsn.com/AutomationLibrary/aws-synthetics-heartbeat-canary.git
+          git clone --depth 1 https://${TOKEN}:x-oauth-basic@github.boozallencsn.com/AutomationLibrary/aws-synthetics-heartbeat-canary.git
           cd aws-synthetics-heartbeat-canary
 
       # - name: Clone repo
