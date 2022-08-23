@@ -11,9 +11,9 @@ on:
 jobs:
   checkov:
     runs-on: [self-hosted]
-    env:
-      USERNAME: ${{ secrets.ACTIONS_USERNAME }}
-      EMAIL: ${{ secrets.ACTIONS_EMAIL }}
+    with:
+      ACTIONS_USERNAME: ${{ secrets.ACTIONS_USERNAME }}
+      ACTIONS_EMAIL: ${{ secrets.ACTIONS_EMAIL }}
     steps:
       - name:
         run: |
@@ -30,9 +30,9 @@ jobs:
   
   tfsec:
     runs-on: [self-hosted]
-    env:
-      USERNAME: ${{ secrets.ACTIONS_USERNAME }}
-      EMAIL: ${{ secrets.ACTIONS_EMAIL }}
+    with:
+      ACTIONS_USERNAME: ${{ secrets.ACTIONS_USERNAME }}
+      ACTIONS_EMAIL: ${{ secrets.ACTIONS_EMAIL }}
     steps:
       - name:
         run: |
