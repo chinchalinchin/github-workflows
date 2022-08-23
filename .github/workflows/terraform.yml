@@ -3,7 +3,7 @@ name: Terraform
 on: workflow_call
 
 jobs:
-  Release:
+  release:
     name: "Terraform"
     runs-on: [self-hosted]
     steps:

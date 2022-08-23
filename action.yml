@@ -4,14 +4,14 @@ on:
   workflow_dispatch:
 
 jobs:
-  Release:
+  release:
     uses: ./.github/workflows/terraform.yml
 
-  Scan:
+  scan:
     uses: ./.github/workflows/scan.yml
 
-  TFLint:
+  tflint:
     uses: ./.github/workflows/lint.yml
 
-  TF-Docs:
+  tfdocs:
     uses: ./.github/workflows/terraform-docs.yml

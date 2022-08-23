@@ -3,7 +3,7 @@ name: Generate terraform docs
 on: workflow_call
 
 jobs:
-  TF-Docs:
+  tfdocs:
     runs-on: [self-hosted]
     env:
       USERNAME: ${{ secrets.ACTIONS_USERNAME }}

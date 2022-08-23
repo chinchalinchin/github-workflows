@@ -3,9 +3,14 @@ name: Scan
 on: workflow_call
 
 jobs:
-  Checkov:
+  checkov:
     runs-on: [self-hosted]
     steps:
+      - name:
+        run: |
+          git clone --depth 1 https://github.boozallencsn.com/AutomationLibrary/aws-synthetics-heartbeat-canary.git
+          cd aws-synthetics-heartbeat-canary
+          ls
       - name: Clone repo
         uses: actions/checkout@v3.0.2
       
@@ -13,11 +18,10 @@ jobs:
         run: checkov -d .
   
   tfsec:
-    name: tfsec
     runs-on: [self-hosted]
     steps:
       - name: Clone repo
         uses: actions/checkout@v3.0.2
       
-      - name: tfsec
+      - name: Run Terraform Security Scan
         run: tfsec .
