@@ -11,38 +11,42 @@ on:
         required: True
 
 jobs:
-  checkout:
-    runs-on: [self-hosted]
-    env:
-      USERNAME: ${{ secrets.ACTIONS_USERNAME }}
-      EMAIL: ${{ secrets.ACTIONS_EMAIL }}
-      TOKEN: ${{ secrets.ACTIONS_PAT }}
-    steps:
-      - name: checkout
-        run: |
-          export REPO=aws-synthetics-heartbeat-canary
-          ls -al
-          cd ${REPO}
-          ls -al
-          git clone --depth 1 https://${USERNAME}:${TOKEN}@github.boozallencsn.com/AutomationLibrary/${REPO}.git
-          cd ${REPO}
+  # checkout:
+  #   runs-on: [self-hosted]
+  #   env:
+  #     USERNAME: ${{ secrets.ACTIONS_USERNAME }}
+  #     EMAIL: ${{ secrets.ACTIONS_EMAIL }}
+  #     TOKEN: ${{ secrets.ACTIONS_PAT }}
+  #   steps:
+  #     - name: checkout
+  #       run: |
+  #         export REPO=aws-synthetics-heartbeat-canary
+  #         ls -al
+  #         cd ${REPO}
+  #         ls -al
+  #         git clone --depth 1 https://${USERNAME}:${TOKEN}@github.boozallencsn.com/AutomationLibrary/${REPO}.git
+  #         cd ${REPO}
 
   checkov:
-    needs: checkout
+    # needs: checkout
     runs-on: [self-hosted]
     steps:
-      # - name: Clone repo
-      #   uses: actions/checkout@v3.0.2
+      - name: Clone repo
+        uses: actions/checkout@v3
+          with: 
+            token: ${{ secrets.ACTION_PAT }}
       
       - name: Scan with Checkov
         run: checkov -d .
   
   tfsec:
-    needs: checkout
+    # needs: checkout
     runs-on: [self-hosted]
     steps:
-      # - name: Clone repo
-      #   uses: actions/checkout@v3.0.2
+      - name: Clone repo
+        uses: actions/checkout@v3
+          with: 
+            token: ${{ secrets.ACTION_PAT }}
       
       - name: Run Terraform Security Scan
         run: tfsec .
