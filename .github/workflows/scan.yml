@@ -33,8 +33,8 @@ jobs:
     steps:
       - name: Clone repo
         uses: actions/checkout@v3
-          with: 
-            token: ${{ secrets.ACTION_PAT }}
+        with: 
+          token: ${{ secrets.ACTION_PAT }}
       
       - name: Scan with Checkov
         run: checkov -d .
@@ -45,8 +45,8 @@ jobs:
     steps:
       - name: Clone repo
         uses: actions/checkout@v3
-          with: 
-            token: ${{ secrets.ACTION_PAT }}
+        with: 
+          token: ${{ secrets.ACTION_PAT }}
       
       - name: Run Terraform Security Scan
         run: tfsec .
