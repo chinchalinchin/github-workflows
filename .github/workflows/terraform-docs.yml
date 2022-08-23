@@ -26,11 +26,12 @@ jobs:
           done
           popd
 
-      - run: git config user.name $USERNAME
-      - run: git config user.email $EMAIL
-      - run: git checkout -b gh-docs
-      - run: git status -u
-      - run: git add --all
-      - run: git add modules/
-      - run: git commit -m "auto-update from terraform-docs"
-      - run: git push --set-upstream origin gh-docs
+      - run: |
+          git config user.name $USERNAME
+          git config user.email $EMAIL
+          git checkout -b gh-docs
+          git status -u
+          git add --all
+          git add modules/
+          git commit -m "auto-update from terraform-docs"
+          git push --set-upstream origin gh-docs
