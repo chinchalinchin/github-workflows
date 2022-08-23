@@ -4,7 +4,7 @@ on: workflow_call
 
 jobs:
   tflint:
-    runs-on: [self-hosted]
+    runs-on: debian
 
     steps:
       - uses: actions/checkout@v3.0.2
