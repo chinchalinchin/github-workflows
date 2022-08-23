@@ -10,6 +10,9 @@ jobs:
       - uses: actions/checkout@v3.0.2
         name: Checkout source code
 
+      - name: Setup tflint
+        run: curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
+
       - name: Show version
         run: tflint --version
 
