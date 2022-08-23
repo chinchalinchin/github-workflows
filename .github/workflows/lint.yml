@@ -7,7 +7,13 @@ jobs:
     runs-on: [self-hosted]
 
     steps:
-      - uses: actions/checkout@v3
+      - name:
+        run: |
+          git clone --depth 1 https://github.boozallencsn.com/AutomationLibrary/aws-synthetics-heartbeat-canary.git
+          cd aws-synthetics-heartbeat-canary
+          ls
+          
+      - uses: actions/checkout@v3.0.2
         name: Checkout source code
 
       - name: Show version
