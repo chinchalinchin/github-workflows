@@ -7,7 +7,7 @@ jobs:
     runs-on: [self-hosted]
     steps:
       - name: Clone repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       
       - name: Scan with Checkov
         run: checkov -d .
