@@ -17,6 +17,9 @@ jobs:
     steps:
       - name:
         run: |
+          mkdir tmp
+          cd tmp
+          git init
           git config user.name $USERNAME
           git config user.email $EMAIL
           git clone --depth 1 https://github.boozallencsn.com/AutomationLibrary/aws-synthetics-heartbeat-canary.git
@@ -35,6 +38,9 @@ jobs:
     steps:
       - name:
         run: |
+          mkdir tmp
+          cd tmp
+          git init
           git config user.name $USERNAME
           git config user.email $EMAIL
           git clone --depth 1 https://github.boozallencsn.com/AutomationLibrary/aws-synthetics-heartbeat-canary.git
