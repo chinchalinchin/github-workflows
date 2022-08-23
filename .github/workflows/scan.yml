@@ -21,9 +21,12 @@ jobs:
       - name: checkout
         run: |
           export REPO=aws-synthetics-heartbeat-canary
+          ls -al
+          cd ${REPO}
+          ls -al
           git clone --depth 1 https://${USERNAME}:${TOKEN}@github.boozallencsn.com/AutomationLibrary/${REPO}.git
           cd ${REPO}
-          
+
   checkov:
     needs: checkout
     runs-on: [self-hosted]
