@@ -17,6 +17,7 @@ jobs:
       image: metzbah/automation-library:latest
       volumes:
         - /etc/resolv.conf:/etc/resolv.conf
+        - /etc/hosts:/etc/hosts
     steps:
       - name: Clone repo
         uses: actions/checkout@v2

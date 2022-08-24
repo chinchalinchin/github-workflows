@@ -9,6 +9,7 @@ jobs:
       image: metzbah/automation-library:latest
       volumes:
         - /etc/resolv.conf:/etc/resolv.conf
+        - /etc/hosts:/etc/hosts
     env:
       USERNAME: ${{ secrets.ACTIONS_USERNAME }}
       EMAIL: ${{ secrets.ACTIONS_EMAIL }}
