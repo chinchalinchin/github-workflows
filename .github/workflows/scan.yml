@@ -24,6 +24,8 @@ jobs:
     steps:
       - name: Clone repo
         uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.PAT_TOKEN }}
       
       - name: Scan with Checkov
         run: checkov -d .
