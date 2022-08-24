@@ -7,7 +7,7 @@ on:
         required: True
       ACTIONS_EMAIL:
         required: True
-      ACTIONS_PAT:
+      PAT_TOKEN:
         required: True
 
 jobs:
