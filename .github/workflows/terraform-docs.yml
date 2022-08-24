@@ -7,9 +7,6 @@ jobs:
     runs-on: debian
     container:
       image: metzbah/automation-library:latest
-      credentials:
-        username: ${{ secrets.DOCKER_LOGIN }}
-        password: ${{ secrets.DOCKER_PAT }}
     env:
       USERNAME: ${{ secrets.ACTIONS_USERNAME }}
       EMAIL: ${{ secrets.ACTIONS_EMAIL }}

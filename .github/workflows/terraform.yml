@@ -8,9 +8,6 @@ jobs:
     runs-on: debian
     container:
       image: metzbah/automation-library:latest
-      credentials:
-        username: ${{ secrets.DOCKER_LOGIN }}
-        password: ${{ secrets.DOCKER_PAT }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
