@@ -8,6 +8,9 @@ jobs:
     runs-on: debian
     container:
       image: metzbah/automation-library:latest
+      ports:
+        - 80
+        - 443
       volumes:
         - /etc/resolv.conf:/etc/resolv.conf
         - /etc/hosts:/etc/hosts
