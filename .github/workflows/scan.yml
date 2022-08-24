@@ -13,14 +13,14 @@ on:
 jobs:
   checkov:
     runs-on: debian
+    container:
+      image: metzbah/automation-library:latest
+      credentials:
+        username: ${{ secrets.DOCKER_LOGIN }}
+        password: ${{ secrets.DOCKER_PAT }}
     steps:
       - name: Clone repo
         uses: actions/checkout@v2
-
-      - name: Setup checkov
-        run: |
-          apt-get -y install python3-pip
-          pip install checkov
       
       - name: Scan with Checkov
         run: checkov -d .
