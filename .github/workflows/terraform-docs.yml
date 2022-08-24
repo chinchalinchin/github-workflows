@@ -7,6 +7,9 @@ jobs:
     runs-on: debian
     container:
       image: metzbah/automation-library:latest
+      ports:
+        - 80
+        - 443
     env:
       USERNAME: ${{ secrets.ACTIONS_USERNAME }}
       EMAIL: ${{ secrets.ACTIONS_EMAIL }}
