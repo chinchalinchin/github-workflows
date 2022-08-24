@@ -8,9 +8,8 @@ jobs:
     runs-on: debian
     container:
       image: metzbah/automation-library:latest
-      ports:
-        - 80
-        - 443
+      volumes:
+        - /etc/resolv.conf:/etc/resolv.conf
     steps:
       - name: Checkout
         uses: actions/checkout@v3
