@@ -4,15 +4,22 @@ on: workflow_call
 
 jobs:
   tfdocs:
-    runs-on: [self-hosted]
+    runs-on: debian
+    container:
+      image: metzbah/automation-library:resolv
+      ports:
+        - 80
+        - 443
     env:
       USERNAME: ${{ secrets.ACTIONS_USERNAME }}
       EMAIL: ${{ secrets.ACTIONS_EMAIL }}
     steps:
       - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.PAT_TOKEN }}
 
       - name: Build TF Docs for root directory
-        run: terraform-docs markdown table --output-file README.md .
+        run: $terraform-docs markdown table --output-file README.md .
 
       - name: Build TF Docs for modules directory
         run: |
@@ -21,17 +28,17 @@ jobs:
           for m in $MODS
           do
             pushd $m
-            terraform-docs markdown table --output-file README.md .
+            $terraform-docs markdown table --output-file README.md .
             popd
           done
           popd
 
-      - run: |
-          git config user.name $USERNAME
-          git config user.email $EMAIL
-          git checkout -b gh-docs
-          git status -u
-          git add --all
-          git add modules/
-          git commit -m "auto-update from terraform-docs"
-          git push --set-upstream origin gh-docs
+#      - run: |
+#          git config user.name $USERNAME
+#          git config user.email $EMAIL
+#          git checkout -b gh-docs
+#          git status -u
+#          git add --all
+#          git add modules/
+#          git commit -m "auto-update from terraform-docs"
+#          git push --set-upstream origin gh-docs
