@@ -32,7 +32,7 @@ jobs:
     runs-on: [self-hosted]
     steps:
       - name: Clone repo
-        uses: actions/checkout@v3
+        uses: https://github.boozallencsn.com/actions/checkout.git
         with: 
           token: ${{ secrets.ACTION_PAT }}
       
