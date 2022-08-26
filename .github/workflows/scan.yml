@@ -22,8 +22,8 @@ jobs:
     container:
       image: metzbah/automation-library:resolv
       options: --user root
-    volumes:
-      - ./${{ github.event.repository.name }}:/home/${{ github.event.repository.name }}
+      volumes:
+        - ./${{ github.event.repository.name }}:/home/${{ github.event.repository.name }}
     steps:    
       - name: Scan with Checkov
         run: checkov -d /home/${{ github.event.repository.name }}
