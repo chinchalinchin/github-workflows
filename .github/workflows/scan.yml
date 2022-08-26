@@ -15,6 +15,7 @@ jobs:
     runs-on: debian
     container:
       image: metzbah/automation-library:resolv
+      options: --user root
     steps:
       - name: Clone repo
         uses: actions/checkout@v2
