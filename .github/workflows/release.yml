@@ -21,11 +21,6 @@ jobs:
     env:
       REPO: ${{ github.event.repository.name }}
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          token: ${{ secrets.PAT_TOKEN }}
-
       - name: Terraform Init
         run: |
           cd /home/${REPO}
