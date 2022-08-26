@@ -2,13 +2,6 @@ name: Scan
 
 on: 
   workflow_call:
-    secrets:
-      ACTIONS_USERNAME:
-        required: True
-      ACTIONS_EMAIL:
-        required: True
-      PAT_TOKEN:
-        required: True
 
 jobs:
   checkout:
