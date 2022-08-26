@@ -3,21 +3,25 @@ name: Generate terraform docs
 on: workflow_call
 
 jobs:
+  checkout:
+    runs-on: debian
+    steps:
+      - name: Clone repo
+        uses: actions/checkout@v2
+
   tfdocs:
+    name: terraform documentation
+    needs: checkout
     runs-on: debian
     container:
       image: metzbah/automation-library:resolv
-      ports:
-        - 80
-        - 443
+      options: --user root
+      volumes:
+        - ${{ github.workspace }}/${{ github.event.repository.name }}:/home/${{ github.event.repository.name }}
     env:
       USERNAME: ${{ secrets.ACTIONS_USERNAME }}
       EMAIL: ${{ secrets.ACTIONS_EMAIL }}
     steps:
-      - uses: actions/checkout@v3
-        with:
-          token: ${{ secrets.PAT_TOKEN }}
-
       - name: Build TF Docs for root directory
         run: $terraform-docs markdown table --output-file README.md .
 

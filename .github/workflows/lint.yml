@@ -7,7 +7,7 @@ jobs:
     runs-on: debian
 
     steps:
-      - uses: actions/checkout@v3.0.2
+      - uses: actions/checkout@v2
         name: Checkout source code
 
       - name: Setup tflint
