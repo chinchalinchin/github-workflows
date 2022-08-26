@@ -1,11 +1,11 @@
-name: TF Pipeline
+name: AutomationLibrary Continuous Integration Pipeline
 
 on:
   workflow_dispatch:
 
 jobs:
   release:
-    uses: ./.github/workflows/terraform.yml
+    uses: ./.github/workflows/release.yml
 
   scan:
     uses: ./.github/workflows/scan.yml
@@ -14,4 +14,4 @@ jobs:
     uses: ./.github/workflows/lint.yml
 
   tfdocs:
-    uses: ./.github/workflows/terraform-docs.yml
+    uses: ./.github/workflows/docs.yml
