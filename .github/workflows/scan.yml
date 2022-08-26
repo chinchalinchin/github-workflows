@@ -25,11 +25,9 @@ jobs:
   
   tfsec:
     name: terraform security scan
+    needs: checkout
     runs-on: debian
     steps:
-      - name: Clone repo
-        uses: actions/checkout@v2
-
       - name: Setup tfsec
         run: curl -s https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install_linux.sh | bash
       
