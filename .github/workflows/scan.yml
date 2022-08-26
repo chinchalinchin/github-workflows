@@ -19,6 +19,7 @@ jobs:
         
   checkov:
     runs-on: debian
+    needs: checkout
     container:
       image: metzbah/automation-library:resolv
       options: --user root
