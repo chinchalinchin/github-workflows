@@ -29,7 +29,7 @@ jobs:
 
       - name: Build TF Docs for modules directory
         run: |
-          cd ${REPO}
+          cd ${{ github.event.repository.name }}
           ls -al 
           MODS=$(ls modules/)
           pushd modules/
