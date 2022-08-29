@@ -24,13 +24,12 @@ jobs:
       image: metzbah/automation-library:resolv
       options: --user root
       volumes:
-        - ${{ github.workspace }}/${{ github.event.repository.name }}:/home/${{ github.event.repository.name }}
+        - ${{ github.workspace }}:/home/workspace/
     steps:    
       - name: Scan with Checkov
         run: |
           pwd 
-          ls -al
-          cd ${{ github.event.repository.name }}
+          cd /home/workspace/
           ls -al
           checkov -d .
   
