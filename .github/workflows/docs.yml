@@ -31,6 +31,7 @@ jobs:
       - name: Build TF Docs for modules directory
         run: |
           cd /home/${REPO}
+          ls -al 
           MODS=$(ls modules/)
           pushd modules/
           for m in $MODS
