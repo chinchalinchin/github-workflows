@@ -22,12 +22,12 @@ jobs:
     needs: checkout
     container:
       image: metzbah/automation-library:resolv
-      options: --user root
       volumes:
         - ${{ github.workspace }}:/home/workspace/
     steps:    
       - name: Scan with Checkov
         run: |
+          curl -v https://google.com
           pwd 
           cd /home/workspace/
           ls -al
