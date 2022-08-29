@@ -11,6 +11,9 @@ jobs:
         uses: actions/checkout@v2
       - name: Debug
         run: |
+          pwd 
+          echo ${{ github.event.repository.name }}
+          echo ${{ github.workspace }}
           ls -al
         
   checkov:
