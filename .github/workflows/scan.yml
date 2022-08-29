@@ -30,7 +30,7 @@ jobs:
         run: |
           pwd 
           ls -al
-          checkov -d /home/${{ github.event.repository.name }}
+          checkov -d ${{ github.event.repository.name }}
   
   tfsec:
     name: terraform security scan

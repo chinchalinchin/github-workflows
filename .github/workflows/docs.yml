@@ -21,16 +21,15 @@ jobs:
     env:
       USERNAME: ${{ secrets.ACTIONS_USERNAME }}
       EMAIL: ${{ secrets.ACTIONS_EMAIL }}
-      REPO: ${{ github.event.repository.name }}
     steps:
       - name: Build TF Docs for root directory
         run: |
-          cd /home/${REPO}
+          cd ${{ github.event.repository.name }}
           terraform-docs markdown table --output-file README.md .
 
       - name: Build TF Docs for modules directory
         run: |
-          cd /home/${REPO}
+          cd ${REPO}
           ls -al 
           MODS=$(ls modules/)
           pushd modules/
