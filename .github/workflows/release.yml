@@ -23,6 +23,8 @@ jobs:
     steps:
       - name: Terraform Init
         run: |
+          ls -al
+          ls -al /home/
           cd /home/${REPO}
           terraform init 
 

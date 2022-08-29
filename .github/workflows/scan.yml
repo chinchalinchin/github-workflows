@@ -9,6 +9,9 @@ jobs:
     steps:
       - name: Clone repo
         uses: actions/checkout@v2
+      - name: Debug
+        run: |
+          ls -al
         
   checkov:
     name: terraform checkov scan
@@ -21,7 +24,10 @@ jobs:
         - ${{ github.workspace }}/${{ github.event.repository.name }}:/home/${{ github.event.repository.name }}
     steps:    
       - name: Scan with Checkov
-        run: checkov -d /home/${{ github.event.repository.name }}
+        run: |
+          pwd 
+          ls -al
+          checkov -d /home/${{ github.event.repository.name }}
   
   tfsec:
     name: terraform security scan
