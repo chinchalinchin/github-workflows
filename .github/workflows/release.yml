@@ -24,7 +24,7 @@ jobs:
       - name: Terraform Init
         run: |
           cd /home/${REPO}
-          $terraform init 
+          terraform init 
 
       #- name: Terraform Plan
       #  if: github.event_name == 'pull_request'
