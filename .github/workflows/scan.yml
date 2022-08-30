@@ -4,17 +4,17 @@ on:
   workflow_call:
 
 jobs:
-  checkout:
-    runs-on: debian
-    steps:
-      - name: Clone repo
-        uses: actions/checkout@v2
-      - name: Debug
-        run: |
-          pwd 
-          echo ${{ github.event.repository.name }}
-          echo ${{ github.workspace }}
-          ls -al
+  # checkout:
+  #   runs-on: debian
+  #   steps:
+  #     - name: Clone repo
+  #       uses: actions/checkout@v2
+  #     - name: Debug
+  #       run: |
+  #         pwd 
+  #         echo ${{ github.event.repository.name }}
+  #         echo ${{ github.workspace }}
+  #         ls -al
         
   checkov:
     name: terraform checkov scan
@@ -24,13 +24,13 @@ jobs:
       image: metzbah/automation-library:resolv
       volumes:
         - ${{ github.workspace }}:/home/workspace/
+      options: --network=host
     steps:    
+      steps:
+      - name: Clone repo
+        uses: actions/checkout@v2
       - name: Scan with Checkov
         run: |
-          curl -v https://google.com
-          pwd 
-          cd /home/workspace/
-          ls -al
           checkov -d .
   
   tfsec:
@@ -38,8 +38,9 @@ jobs:
     needs: checkout
     runs-on: debian
     steps:
+      - name: Clone repo
+        uses: actions/checkout@v2
       - name: Setup tfsec
         run: curl -s https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install_linux.sh | bash
-      
       - name: Run Terraform Security Scan
         run: tfsec .
