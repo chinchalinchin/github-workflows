@@ -19,7 +19,6 @@ jobs:
   checkov:
     name: terraform checkov scan
     runs-on: debian
-    needs: checkout
     container:
       image: metzbah/automation-library:resolv
       volumes:
@@ -35,7 +34,6 @@ jobs:
   
   tfsec:
     name: terraform security scan
-    needs: checkout
     runs-on: debian
     steps:
       - name: Clone repo
