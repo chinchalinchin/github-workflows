@@ -25,13 +25,12 @@ jobs:
         - ${{ github.workspace }}:/home/workspace/
       options: --network=host
     steps:    
-      steps:
       - name: Clone repo
         uses: actions/checkout@v2
       - name: Scan with Checkov
         run: |
           checkov -d .
-  
+    
   tfsec:
     name: terraform security scan
     runs-on: debian
