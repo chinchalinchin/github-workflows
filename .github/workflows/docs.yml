@@ -17,6 +17,7 @@ jobs:
           curl -sSLo ./terraform-docs.tar.gz https://terraform-docs.io/dl/v0.16.0/terraform-docs-v0.16.0-$(uname)-amd64.tar.gz
           tar -xzf terraform-docs.tar.gz
           chmod +x terraform-docs
+          export PATH=$(pwd):$PATH
       - name: Build docs for root directory
         run: |
           ./terraform-docs markdown table --output-file README.md .
