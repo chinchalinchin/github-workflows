@@ -12,12 +12,12 @@ jobs:
         run: |
           sudo apt-get update -y
           sudo apt-get install -y python3-dev python3-pip build-essential
-          pip install checkov
+          pip3 install checkov
       - name: Clone
         uses: actions/checkout@v2
       - name: Scan
         run: |
-          ~/.local/bin/checkov -d .
+          checkov -d .
 
   tfsec:
     name: terraform security scan
