@@ -3,31 +3,20 @@ name: Scan
 on: 
   workflow_call:
 
-jobs:
-  # checkout:
-  #   runs-on: debian
-  #   steps:
-  #     - name: Clone repo
-  #       uses: actions/checkout@v2
-  #     - name: Debug
-  #       run: |
-  #         pwd 
-  #         echo ${{ github.event.repository.name }}
-  #         echo ${{ github.workspace }}
-  #         ls -al
-        
+jobs:        
   checkov:
     name: terraform checkov scan
     runs-on: debian
-    container:
-      image: metzbah/automation-library:resolv
-      volumes:
-        - ${{ github.workspace }}:/home/workspace/
-      options: --network=host
     steps:    
+      - name: Install dependencies
+        run: |
+          python3 -m venv .venv
+          source .venv/bin/activate
+          pip install checkhov
       - name: Clone repo
         uses: actions/checkout@v2
-      - name: Scan with Checkov
+
+      - name: Scan repos
         run: |
           checkov -d .
     

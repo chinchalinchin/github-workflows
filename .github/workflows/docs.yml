@@ -3,43 +3,36 @@ name: Docs
 on: workflow_call
 
 jobs:
-  checkout:
-    runs-on: debian
-    steps:
-      - name: Clone repo
-        uses: actions/checkout@v2
-
   tfdocs:
     name: terraform documentation
-    needs: checkout
     runs-on: debian
-    container:
-      image: metzbah/automation-library:resolv
-      options: --user root
-      volumes:
-        - ${{ github.workspace }}/${{ github.event.repository.name }}:/home/${{ github.event.repository.name }}
     env:
       USERNAME: ${{ secrets.ACTIONS_USERNAME }}
       EMAIL: ${{ secrets.ACTIONS_EMAIL }}
     steps:
-      - name: Build TF Docs for root directory
+      - name: Clone repo
+        uses: actions/checkout@v2
+      - name:
         run: |
-          cd ${{ github.event.repository.name }}
-          terraform-docs markdown table --output-file README.md .
+          curl -sSLo ./terraform-docs.tar.gz https://terraform-docs.io/dl/v0.16.0/terraform-docs-v0.16.0-$(uname)-amd64.tar.gz
+          tar -xzf terraform-docs.tar.gz
+          chmod +x terraform-docs
+          export PATH=$(pwd):$PATH
+      - name: Build docs for root directory
+        run: |
+          ./terraform-docs markdown table --output-file README.md .
 
-      - name: Build TF Docs for modules directory
-        run: |
-          cd ${{ github.event.repository.name }}
-          ls -al 
-          MODS=$(ls modules/)
-          pushd modules/
-          for m in $MODS
-          do
-            pushd $m
-            terraform-docs markdown table --output-file README.md .
-            popd
-          done
-          popd
+      # - name: Build docs for modules directory
+      #   run: |
+      #     MODS=$(ls modules/)
+      #     pushd modules/
+      #     for m in $MODS
+      #     do
+      #       pushd $m
+      #       terraform-docs markdown table --output-file README.md .
+      #       popd
+      #     done
+      #     popd
 
 #      - run: |
 #          git config user.name $USERNAME
