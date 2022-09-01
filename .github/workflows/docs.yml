@@ -10,7 +10,7 @@ jobs:
       USERNAME: ${{ secrets.ACTIONS_USERNAME }}
       EMAIL: ${{ secrets.ACTIONS_EMAIL }}
     steps:
-      - name: Clone repo
+      - name: clone
         uses: actions/checkout@v2
       - name:
         run: |
@@ -18,7 +18,7 @@ jobs:
           tar -xzf terraform-docs.tar.gz
           chmod +x terraform-docs
           export PATH=$(pwd):$PATH
-      - name: Build docs for root directory
+      - name: build
         run: |
           ./terraform-docs markdown table --output-file README.md .
 

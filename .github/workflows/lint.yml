@@ -5,19 +5,12 @@ on: workflow_call
 jobs:
   tflint:
     runs-on: debian
-
     steps:
-      - uses: actions/checkout@v2
-        name: Checkout source code
-
-      - name: Setup tflint
-        run: curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
-
-      - name: Show version
-        run: tflint --version
-
-      - name: Init TFLint
-        run: tflint --init
-
-      - name: Run TFLint
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: setup
+        run: |
+          curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
+          tflint --init
+      - name: lint
         run: tflint

@@ -18,8 +18,10 @@ jobs:
       - name: Clone
         uses: actions/checkout@v2
       - name: Scan
-        run: checkov -d .
-    
+        run: |
+          source .venv/bin/activate
+          checkov -d .
+
   tfsec:
     name: terraform security scan
     runs-on: debian

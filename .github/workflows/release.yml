@@ -8,7 +8,7 @@ jobs:
     name: terraform release
     runs-on: debian
     steps:
-      - name: Clone repo
+      - name: clone
         uses: actions/checkout@v2
       - name: Install terraform
         run: |
@@ -16,7 +16,7 @@ jobs:
           wget https://releases.hashicorp.com/terraform/${TER_VER}/terraform_${TER_VER}_linux_amd64.zip
           unzip terraform_${TER_VER}_linux_amd64.zip
           export PATH=$(pwd):$PATH
-      - name: Terraform Init
+      - name: init
         run: |
           ./terraform init 
 
