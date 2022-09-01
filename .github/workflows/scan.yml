@@ -8,18 +8,17 @@ jobs:
     name: terraform checkov scan
     runs-on: debian
     steps:    
-      - name: Install dependencies
+      - name: Dependencies
         run: |
-          sudo apt-get install python3-venv
+          sudo apt-get update -y
+          sudo apt-get install -y python3-venv
           python3 -m venv .venv
           source .venv/bin/activate
           pip install checkhov
-      - name: Clone repo
+      - name: Clone
         uses: actions/checkout@v2
-
-      - name: Scan repos
-        run: |
-          checkov -d .
+      - name: Scan
+        run: checkov -d .
     
   tfsec:
     name: terraform security scan
