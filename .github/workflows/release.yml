@@ -13,7 +13,7 @@ jobs:
 
       - name: cache
         id: cache_tf
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: bin/terraform
           key: ${{ github.repository }}-tf

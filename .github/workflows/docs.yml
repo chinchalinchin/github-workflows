@@ -10,13 +10,14 @@ jobs:
       USERNAME: ${{ secrets.ACTIONS_USERNAME }}
       EMAIL: ${{ secrets.ACTIONS_EMAIL }}
       TFDOCS_VER: 0.16.0
+      
     steps:
       - name: clone
         uses: actions/checkout@v2
 
       - name: cache
         id: cache_tfdocs
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: bin/terraform-docs
           key: ${{ github.repository }}-tfdocs

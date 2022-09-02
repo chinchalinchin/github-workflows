@@ -9,6 +9,9 @@ jobs:
     runs-on: debian
 
     steps:    
+      - name: clone
+        uses: actions/checkout@v2
+        
       # TODO: how to cache system deps
       - name: system dependencies
         run: |
@@ -20,7 +23,7 @@ jobs:
 
       - name: cache
         id: cache_checkov
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: .venv
           key: ${{ github.repository }}-checkov-venv
@@ -31,9 +34,6 @@ jobs:
           python3 -m venv .venv
           source .venv/bin/activate
           pip3 install checkov
-
-      - name: clone
-        uses: actions/checkout@v2
 
       - name: scan
         run: |
