@@ -28,7 +28,7 @@ jobs:
           curl -sSLo ./terraform-docs.tar.gz https://terraform-docs.io/dl/v${TFDOCS_VER}/terraform-docs-v${TFDOCS_VER}-$(uname)-amd64.tar.gz
           tar -xzf terraform-docs.tar.gz
           chmod +x terraform-docs
-          if [ ! -d "bin" ] then
+          if [ ! -d "bin" ]; then
             mkdir bin
           fi
           mv terraform-docs bin
