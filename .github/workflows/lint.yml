@@ -8,9 +8,13 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v2
+
+      # TODO: what to cache for setup
+      
       - name: setup
         run: |
           curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
           tflint --init
+
       - name: lint
         run: tflint

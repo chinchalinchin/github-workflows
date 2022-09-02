@@ -9,18 +9,34 @@ jobs:
     env:
       USERNAME: ${{ secrets.ACTIONS_USERNAME }}
       EMAIL: ${{ secrets.ACTIONS_EMAIL }}
+      TFDOCS_VER: 0.16.0
     steps:
       - name: clone
         uses: actions/checkout@v2
-      - name:
+
+      - name: cache
+        id: cache_tfdocs
+        uses: actions/cache@v3
+        with:
+          path: bin/terraform-docs
+          key: ${{ github.repository }}-tfdocs
+
+      # see: https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-environment-variable
+      - name: setup
+        if: steps.cache_tfdocs.outputs.cache-hit != 'true'
         run: |
-          curl -sSLo ./terraform-docs.tar.gz https://terraform-docs.io/dl/v0.16.0/terraform-docs-v0.16.0-$(uname)-amd64.tar.gz
+          curl -sSLo ./terraform-docs.tar.gz https://terraform-docs.io/dl/v${TFDOCS_VER}/terraform-docs-v${TFDOCS_VER}-$(uname)-amd64.tar.gz
           tar -xzf terraform-docs.tar.gz
           chmod +x terraform-docs
-          export PATH=$(pwd):$PATH
+          if [ ! -d "bin" ] then
+            mkdir bin
+          fi
+          mv terraform-docs bin
+          echo "PATH=$(pwd)/bin:$PATH" >> $GITHUB_ENV
+
       - name: build
         run: |
-          ./terraform-docs markdown table --output-file README.md .
+          terraform-docs markdown table --output-file README.md .
 
       # - name: Build docs for modules directory
       #   run: |
