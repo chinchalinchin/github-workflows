@@ -16,7 +16,7 @@ jobs:
 
       - name: cache
         id: cache_tfdocs
-        uses: actions/cache@v3
+        uses: actions/cache@v2
         with:
           path: bin/terraform-docs
           key: ${{ github.repository }}-tfdocs

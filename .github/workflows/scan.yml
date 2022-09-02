@@ -9,6 +9,7 @@ jobs:
     runs-on: debian
 
     steps:    
+      # TODO: how to cache system deps
       - name: system dependencies
         run: |
           sudo apt-get update -y
@@ -19,7 +20,7 @@ jobs:
 
       - name: cache
         id: cache_checkov
-        uses: actions/cache@v3
+        uses: actions/cache@v2
         with:
           path: .venv
           key: ${{ github.repository }}-checkov-venv
@@ -31,10 +32,10 @@ jobs:
           source .venv/bin/activate
           pip3 install checkov
 
-      - name: Clone
+      - name: clone
         uses: actions/checkout@v2
 
-      - name: Scan
+      - name: scan
         run: |
           source .venv/bin/activate
           checkov -d .
@@ -43,9 +44,11 @@ jobs:
     name: terraform security scan
     runs-on: debian
     steps:
-      - name: Clone repo
+      - name: clone
         uses: actions/checkout@v2
-      - name: Setup tfsec
+
+      - name: setup
         run: curl -s https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install_linux.sh | bash
-      - name: Run Terraform Security Scan
+
+      - name: scan
         run: tfsec .
