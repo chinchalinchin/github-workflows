@@ -10,8 +10,12 @@ jobs:
       USERNAME: ${{ secrets.ACTIONS_USERNAME }}
       EMAIL: ${{ secrets.ACTIONS_EMAIL }}
       TFDOCS_VER: 0.16.0
-      
+
     steps:
+      # see: https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-environment-variable
+      - name: environment
+        run: echo "PATH=$(pwd)/bin:$PATH" >> $GITHUB_ENV
+
       - name: clone
         uses: actions/checkout@v2
 
@@ -22,7 +26,6 @@ jobs:
           path: bin/terraform-docs
           key: ${{ github.repository }}-tfdocs
 
-      # see: https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-environment-variable
       - name: setup
         if: steps.cache_tfdocs.outputs.cache-hit != 'true'
         run: |
@@ -33,7 +36,6 @@ jobs:
             mkdir bin
           fi
           mv terraform-docs bin
-          echo "PATH=$(pwd)/bin:$PATH" >> $GITHUB_ENV
 
       - name: build
         run: |

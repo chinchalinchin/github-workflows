@@ -8,6 +8,10 @@ jobs:
     name: terraform release
     runs-on: debian
     steps:
+      # see: https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-environment-variable
+      - name: environment
+        run: echo "PATH=$(pwd)/bin:$PATH" >> $GITHUB_ENV
+
       - name: clone
         uses: actions/checkout@v2
 
@@ -18,7 +22,6 @@ jobs:
           path: bin/terraform
           key: ${{ github.repository }}-tf
 
-      # see: https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-environment-variable
       - name: Install terraform
         if: steps.cache_tfdocs.outputs.cache-hit != 'true'
         run: |
@@ -29,7 +32,6 @@ jobs:
             mkdir bin
           fi
           mv terraform bin/
-          echo "PATH=$(pwd)/bin:$PATH" >> $GITHUB_ENV
 
       - name: init
         run: |
