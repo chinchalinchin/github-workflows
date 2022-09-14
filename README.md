@@ -11,7 +11,7 @@ The _.sample.tf.yml_ can be added to a _.github/workflows_ directory in your rep
 
 ### Variables
 
-If your modules contain variables without default parameters, then in order to test the release of your module in the CI pipeline, you will need to add a sample file with test values in the root of your repository in a file named _.tfvars_. This file is consumed in the _.github/workflows/release.yml_ in the planning step.
+If your modules contain variables without default parameters, then in order to test the release of your module in the CI pipeline, you will need to copy the sample file _.sample.terraform-vars.yml_ into a file named _.terraform_vars_ in the root of the repository and adjust the variables to your particular project. This file is consumed in the _.github/workflows/release.yml_ in the planning step.
 
 See [TFVar Files](https://www.terraform.io/language/values/variables#variable-definitions-tfvars-files) for more info. 
 
