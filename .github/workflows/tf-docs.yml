@@ -64,11 +64,11 @@ jobs:
 
       - name: commit
         run: |
-          git config user.name $USERNAME
-          git config user.email $EMAIL
+          git config --global user.name $USERNAME
+          git config --global user.email $EMAIL
           git stash
+          git fetch
           git checkout gh-pages
-          git pull
           git stash pop
           git add .
           git commit -m "$(echo $(date)) Auto-Documentation"
