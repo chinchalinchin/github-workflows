@@ -46,7 +46,8 @@ jobs:
 
       - name: plan
         run: |
-          terraform plan
+          terraform plan \
+            -var-file .tfvars
 
       #- name: Terraform Plan
       #  if: github.event_name == 'pull_request'
