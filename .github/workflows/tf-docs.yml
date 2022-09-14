@@ -90,7 +90,7 @@ jobs:
           cd ..
           
       - name: copy html to tmp
-        run:
+        run: |
           mkdir $(pwd)/../tmp
           cp -ap ./docs/build/html/. $(pwd)/../tmp
 
