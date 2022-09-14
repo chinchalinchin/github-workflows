@@ -6,7 +6,7 @@ on:
 jobs:        
   checkov:
     name: terraform checkov scan
-    runs-on: debian
+    runs-on: debian:bullseye
 
     steps:    
       - name: clone

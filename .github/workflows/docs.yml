@@ -5,7 +5,7 @@ on: workflow_call
 jobs:
   tfdocs:
     name: terraform documentation
-    runs-on: debian
+    runs-on: debian:bullseye
     env:
       USERNAME: ${{ secrets.ACTIONS_USERNAME }}
       EMAIL: ${{ secrets.ACTIONS_EMAIL }}

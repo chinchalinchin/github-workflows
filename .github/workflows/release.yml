@@ -6,7 +6,7 @@ jobs:
 
   release:
     name: terraform release
-    runs-on: debian
+    runs-on: debian:bullseye
     steps:
       # see: https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-environment-variable
       - name: environment
