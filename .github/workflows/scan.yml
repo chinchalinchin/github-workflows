@@ -1,7 +1,7 @@
 name: Scan
 
-on: 
-  workflow_call:
+# https://docs.github.com/en/actions/using-workflows/reusing-workflows#overview
+on: workflow_call
 
 jobs:        
   checkov:
