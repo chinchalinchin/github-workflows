@@ -1,0 +1,33 @@
+name: aws-synthetics-heartbeat-canary workflows
+
+# see: https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#pull_request
+on:
+  push:
+    branches:
+      - feature/**
+      - hotfix/**
+
+  pull_request:
+    branches:
+      - dev
+      - master
+      - main
+
+  workflow_dispatch:
+
+jobs:
+  Release:
+    uses: AutomationLibrary/actions-workflows/.github/workflows/release.yml@main
+    secrets: inherit
+
+  Scan:
+    uses: AutomationLibrary/actions-workflows/.github/workflows/scan.yml@main
+    secrets: inherit
+
+  Lint:
+    uses: AutomationLibrary/actions-workflows/.github/workflows/lint.yml@main
+    secrets: inherit
+
+  Docs:
+    uses: AutomationLibrary/actions-workflows/.github/workflows/docs.yml@main
+    secrets: inherit
