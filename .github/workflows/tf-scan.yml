@@ -1,4 +1,4 @@
-name: Scan
+name: Terraform Scan
 
 # https://docs.github.com/en/actions/using-workflows/reusing-workflows#overview
 on: workflow_call

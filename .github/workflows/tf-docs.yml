@@ -1,4 +1,4 @@
-name: Docs
+name: Terraform Docs
 
 # see: https://docs.github.com/en/actions/using-workflows/reusing-workflows#overview
 on: 

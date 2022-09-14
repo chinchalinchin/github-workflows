@@ -1,10 +1,11 @@
-name: Lint
+name: Terraform Lint
 
 # https://docs.github.com/en/actions/using-workflows/reusing-workflows#overview
 on: workflow_call
 
 jobs:
   tflint:
+    name: terraform lint
     runs-on: ubuntu-latest
 
     steps:
