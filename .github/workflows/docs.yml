@@ -8,8 +8,8 @@ jobs:
     name: terraform documentation
     runs-on: ubuntu-latest
     env:
-      USERNAME: ${{ secrets.ACTIONS_USERNAME }}
-      EMAIL: ${{ secrets.ACTIONS_EMAIL }}
+      USERNAME: ${{ secrets.ACTIONS_BOT_USERNAME }}
+      EMAIL: ${{ secrets.ACTIONS_BOT_EMAIL }}
       TFDOCS_VER: 0.16.0
 
     steps:
@@ -17,9 +17,11 @@ jobs:
       - name: environment
         run: echo "PATH=$(pwd)/bin:$PATH" >> $GITHUB_ENV
 
-      - name: clone
+      # see: https://github.com/actions/checkout
+      - name: checkout
         uses: actions/checkout@v2
 
+      # see: https://github.com/actions/cache
       - name: cache
         id: cache_tfdocs
         uses: actions/cache@v3

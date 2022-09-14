@@ -23,9 +23,11 @@ jobs:
           export AWS_ACCESS_KEY_ID
           export AWS_SECRET_ACCESS_KEY
 
-      - name: clone
+      # see: https://github.com/actions/checkout
+      - name: checkout
         uses: actions/checkout@v2
 
+      # see: https://github.com/actions/cache
       - name: cache
         id: cache_tf
         uses: actions/cache@v3

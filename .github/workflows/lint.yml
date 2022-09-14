@@ -12,9 +12,11 @@ jobs:
       - name: environment
         run: echo "PATH=$(pwd)/bin:$PATH" >> $GITHUB_ENV
 
+      # see: https://github.com/actions/checkout
       - name: checkout
         uses: actions/checkout@v2
 
+      # see: https://github.com/actions/cache
       - name: cache
         id: cache_tflint
         uses: actions/cache@v3

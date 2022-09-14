@@ -7,8 +7,9 @@ jobs:
   checkov:
     name: terraform checkov scan
     runs-on: ubuntu-latest
-    steps:    
-      - name: clone
+    steps:
+      # https://github.com/actions/checkout
+      - name: checkout
         uses: actions/checkout@v2
         
       # Github GPG key: https://github.com/cli/cli/issues/6175#issuecomment-1238477714
@@ -25,6 +26,7 @@ jobs:
                                   python3-pip \
                                   build-essential
 
+      # see: https://github.com/actions/cache
       - name: cache
         id: cache_checkov
         uses: actions/cache@v3
