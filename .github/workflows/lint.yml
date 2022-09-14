@@ -4,7 +4,7 @@ on: workflow_call
 
 jobs:
   tflint:
-    runs-on: debian:bullseye
+    runs-on: bullseye
     steps:
       - name: checkout
         uses: actions/checkout@v2
