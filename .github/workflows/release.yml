@@ -17,7 +17,10 @@ jobs:
     steps:
       # see: https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-environment-variable
       - name: environment
-        run: echo "PATH=$(pwd)/bin:$PATH" >> $GITHUB_ENV
+        run: |
+          echo "PATH=$(pwd)/bin:$PATH" >> $GITHUB_ENV
+          export AWS_ACCESS_KEY_ID
+          export AWS_SECRET_ACCESS_KEY
 
       - name: clone
         uses: actions/checkout@v2
@@ -43,10 +46,10 @@ jobs:
       - name: init
         run: |
           terraform init
-          aws configure
 
       - name: plan
         run: |
+          echo $AWS_DEFAULT_REGION
           terraform plan \
             -var-file .tfvars
 
