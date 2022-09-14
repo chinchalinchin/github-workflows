@@ -7,13 +7,25 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # see: https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-environment-variable
+      - name: environment
+        run: echo "PATH=$(pwd)/bin:$PATH" >> $GITHUB_ENV
+        
       - name: checkout
         uses: actions/checkout@v2
 
-      # TODO: what to cache for tflint setup?
+      - name: cache
+        id: cache_tfdocs
+        uses: actions/cache@v3
+        with:
+          path: bin
+          key: ${{ github.repository }}-tflint
 
       - name: setup
+        if: steps.cache_tfdocs.outputs.cache-hit != 'true
         run: |
+          mkdir bin
+          export TFLINT_INSTALL_PATH=$(pwd)/bin
           curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
 
       - name: lint
