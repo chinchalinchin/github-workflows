@@ -66,10 +66,10 @@ jobs:
         run: |
           git config --global user.name $USERNAME
           git config --global user.email $EMAIL
+          git add .
           git stash
           git fetch
           git checkout gh-pages
           git stash pop
-          git add .
           git commit -m "$(echo $(date)) Auto-Documentation"
           git push --set-upstream origin gh-pages
