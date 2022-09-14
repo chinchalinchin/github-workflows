@@ -20,8 +20,6 @@ jobs:
       - name: environment
         run: |
           echo "PATH=$(pwd)/bin:$PATH" >> $GITHUB_ENV
-          export AWS_ACCESS_KEY_ID
-          export AWS_SECRET_ACCESS_KEY
 
       # see: https://github.com/actions/checkout
       - name: checkout
@@ -53,10 +51,6 @@ jobs:
       - name: plan
         run: |
           echo ${{ secrets.AWS_IAM_USER }}
-          echo $AWS_DEFAULT_REGION
-          export AWS_DEFAULT_REGION
-          export AWS_ACCESS_KEY_ID
-          export AWS_SECRET_ACCESS_KEY
           terraform plan \
             -var-file .tfvars
 
