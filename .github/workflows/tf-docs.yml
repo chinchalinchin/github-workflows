@@ -31,12 +31,26 @@ jobs:
         uses: actions/checkout@v2
 
       # see: https://github.com/actions/cache
-      - name: cache
+      - name: tfdocs cache
         id: cache_tfdocs
         uses: actions/cache@v3
         with:
           path: bin/terraform-docs
           key: ${{ github.repository }}-tfdocs
+
+      - name: sphinx cache
+        id: cache_sphinx
+        uses: actions/cache@v3
+        with:
+          path: .venv
+          key: ${{ github.repository }}-sphinx-venv
+
+      - name: job dependencies
+        if: steps.cache_checkov.outputs.cache-hit != 'true'
+        run: |
+          python3 -m venv .venv
+          source .venv/bin/activate
+          pip3 install sphinx
 
       - name: setup
         if: steps.cache_tfdocs.outputs.cache-hit != 'true'
@@ -51,17 +65,9 @@ jobs:
 
       - name: build
         run: |
-          terraform-docs markdown table --output-file README.md .
-          MODS=$(ls modules/)
-          pushd modules/
-          for m in $MODS
-          do
-            pushd $m
-            terraform-docs markdown table --output-file README.md .
-            popd
-          done
-          popd
+          terraform-docs --config .terraform-docs.yml .
 
+      # note: disjunction of command with true to avoid possible failures
       - name: commit
         run: |
           git config --global user.name $USERNAME
@@ -71,5 +77,5 @@ jobs:
           git fetch
           git checkout gh-pages
           git stash pop
-          git commit -m "$(echo $(date)) Auto-Documentation"
-          git push --set-upstream origin gh-pages
+          git commit -m "$(echo $(date)) Auto-Documentation" || true
+          git push --set-upstream origin gh-pages || true
