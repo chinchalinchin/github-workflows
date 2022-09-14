@@ -1,8 +1,22 @@
 name: Release
 
 # https://docs.github.com/en/actions/using-workflows/reusing-workflows#overview
-on: workflow_call
-
+on: 
+  workflow_call:
+    # see: https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#onworkflow_callsecrets
+    secrets:
+      AWS_IAM_USER:
+        required: true
+        description: IAM username of the AWS service account
+      AWS_ACCESS_KEY_ID:
+        required: true
+        description: Access key ID of the AWS service account
+      AWS_SECRET_ACCESS_KEY:
+        required: true
+        description: Secret access key of the AWS service account
+      AWS_DEFAULT_REGION:
+        required: true
+        description: Default region of the AWS service account
 jobs:
 
   release:

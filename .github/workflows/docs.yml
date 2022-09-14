@@ -1,7 +1,16 @@
 name: Docs
 
-# https://docs.github.com/en/actions/using-workflows/reusing-workflows#overview
-on: workflow_call
+# see: https://docs.github.com/en/actions/using-workflows/reusing-workflows#overview
+on: 
+  workflow_call:
+    # see: https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#onworkflow_callsecrets
+    secrets:
+      ACTIONS_BOT_USERNAME:
+        required: true
+        description: Username of the bot that will push commits back to the gh-pages branch of the repository.
+      ACTIONS_BOT_EMAIL:
+        required: true
+        description: Email of the bot that will push commits back to the gh-pages branch of the repository.
 
 jobs:
   tfdocs:
