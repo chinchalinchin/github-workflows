@@ -25,7 +25,7 @@ jobs:
       - name: setup
         if: steps.cache_tflint.outputs.cache-hit != 'true'
         run: |
-          f [ ! -d "bin" ]; then
+          if [ ! -d "bin" ]; then
             mkdir bin
           fi
           export TFLINT_INSTALL_PATH=$(pwd)/bin
