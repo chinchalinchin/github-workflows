@@ -50,7 +50,7 @@ jobs:
         run: |
           python3 -m venv .venv
           source .venv/bin/activate
-          pip3 install sphinx
+          pip3 install -r ./docs/requirements.txt
 
       - name: setup
         if: steps.cache_tfdocs.outputs.cache-hit != 'true'
@@ -63,19 +63,26 @@ jobs:
           fi
           mv terraform-docs bin
 
-      - name: build
+      - name: build docs
         run: |
           terraform-docs --config .terraform-docs.yml .
+
+      - name: build html
+        run: cd docs && make html && cd ..
+          
+      - name: copy build to tmp
+        run:
+          mkdir -p $(pwd)/../tmp
+          cp -ap ./docs/build/html/. $(pwd)/../tmp
 
       # note: disjunction of command with true to avoid possible failures
       - name: commit
         run: |
           git config --global user.name $USERNAME
           git config --global user.email $EMAIL
-          git add .
           git stash
           git fetch
           git checkout gh-pages
-          git stash pop
+          cp -ap $(pwd)/../tmp/. ./
           git commit -m "$(echo $(date)) Auto-Documentation" || true
           git push --set-upstream origin gh-pages || true
