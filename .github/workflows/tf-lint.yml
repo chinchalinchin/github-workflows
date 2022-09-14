@@ -25,6 +25,7 @@ jobs:
           path: bin
           key: ${{ github.repository }}-tflint
 
+      # see: https://github.com/terraform-linters/tflint/blob/b899b18a6be5e8aff7b224dad62fb772b8a5fa0f/install_linux.sh#L68
       - name: setup
         if: steps.cache_tflint.outputs.cache-hit != 'true'
         run: |

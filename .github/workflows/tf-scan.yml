@@ -8,11 +8,12 @@ jobs:
     name: terraform checkov scan
     runs-on: ubuntu-latest
     steps:
-      # https://github.com/actions/checkout
+      # see: https://github.com/actions/checkout
       - name: checkout
         uses: actions/checkout@v2
         
-      # Github GPG key: https://github.com/cli/cli/issues/6175#issuecomment-1238477714
+      # TODO: how to cache system dependencies?
+      # see: https://github.com/cli/cli/issues/6175#issuecomment-1238477714
       - name: system dependencies
         run: |
           curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
@@ -48,13 +49,29 @@ jobs:
 
   tfsec:
     name: terraform security scan
-    runs-on: debian
+    runs-on: ubuntu-latest
     steps:
-      - name: clone
+      # https://github.com/actions/checkout
+      - name: checkout
         uses: actions/checkout@v2
 
+      # see: https://github.com/actions/cache
+      - name: cache
+        id: cache_tfsec
+        uses: actions/cache@v3
+        with:
+          path: bin
+          key: ${{ github.repository }}-tfsec
+
+      # see: https://github.com/aquasecurity/tfsec/blob/da18cf5eeb62a9120dcae18aa034e63f2a934f40/scripts/install_linux.sh#L93
       - name: setup
-        run: curl -s https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install_linux.sh | bash
+        if: steps.cache_tfsec.outputs.cache-hit != 'true'
+        run: |
+          if [ ! -d "bin" ]; then
+            mkdir bin
+          fi
+          export TFSEC_INSTALL_PATH=$(pwd)/bin
+          curl -s https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install_linux.sh | bash
 
       - name: scan
         run: tfsec .
