@@ -14,8 +14,14 @@ jobs:
       # TODO: how to cache system deps
       # --allow-unauthenticated: https://github.com/cli/cli/issues/6175
       #   i.e., only way to update repository and install dependencies until certificates are renewed.
+
+      # Github GPG key: https://github.com/cli/cli/issues/6175#issuecomment-1238477714
       - name: system dependencies
         run: |
+          curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
+          && sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg \
+          && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+          
           sudo apt-get update -y \
                               --allow-unauthenticated
           sudo apt-get install -y \
