@@ -22,7 +22,7 @@ jobs:
           key: ${{ github.repository }}-tflint
 
       - name: setup
-        if: steps.cache_tflint.outputs.cache-hit != 'true
+        if: steps.cache_tflint.outputs.cache-hit != 'true'
         run: |
           mkdir bin
           export TFLINT_INSTALL_PATH=$(pwd)/bin
