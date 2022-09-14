@@ -4,7 +4,8 @@ on: workflow_call
 
 jobs:
   tflint:
-    runs-on: bullseye
+    runs-on: ubuntu-latest
+
     steps:
       - name: checkout
         uses: actions/checkout@v2

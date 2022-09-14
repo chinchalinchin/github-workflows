@@ -6,8 +6,7 @@ on:
 jobs:        
   checkov:
     name: terraform checkov scan
-    runs-on: bullseye
-
+    runs-on: ubuntu-latest
     steps:    
       - name: clone
         uses: actions/checkout@v2
