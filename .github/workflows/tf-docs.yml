@@ -91,7 +91,7 @@ jobs:
           
       - name: copy html to tmp
         run:
-          mkdir -p $(pwd)/../tmp
+          mkdir $(pwd)/../tmp
           cp -ap ./docs/build/html/. $(pwd)/../tmp
 
       # note: disjunction of command with true to avoid possible failures
