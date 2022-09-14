@@ -52,10 +52,10 @@ jobs:
 
       - name: commit
         run: |
-        git config user.name $USERNAME
-        git config user.email $EMAIL
-        git checkout -b gh-pages
-        git add --all
-        git add modules/
-        git commit -m "$(echo $(date)) Auto-Documentation"
-        git push --set-upstream origin gh-pages
+          git config user.name $USERNAME
+          git config user.email $EMAIL
+          git checkout -b gh-pages
+          git add --all
+          git add modules/
+          git commit -m "$(echo $(date)) Auto-Documentation"
+          git push --set-upstream origin gh-pages
