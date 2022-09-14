@@ -40,9 +40,6 @@ jobs:
       - name: build
         run: |
           terraform-docs markdown table --output-file README.md .
-
-      - name: Build docs for modules directory
-        run: |
           MODS=$(ls modules/)
           pushd modules/
           for m in $MODS
@@ -53,11 +50,12 @@ jobs:
           done
           popd
 
-     - run: |
-         git config user.name $USERNAME
-         git config user.email $EMAIL
-         git checkout -b gh-pages
-         git add --all
-         git add modules/
-         git commit -m "$(echo $(date)) Auto-Documentation"
-         git push --set-upstream origin gh-pages
+      - name: commit
+        run: |
+        git config user.name $USERNAME
+        git config user.email $EMAIL
+        git checkout -b gh-pages
+        git add --all
+        git add modules/
+        git commit -m "$(echo $(date)) Auto-Documentation"
+        git push --set-upstream origin gh-pages
