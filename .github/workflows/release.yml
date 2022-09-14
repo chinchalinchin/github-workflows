@@ -49,6 +49,7 @@ jobs:
 
       - name: plan
         run: |
+          echo ${{ secrets.AWS_IAM_USER }}
           echo $AWS_DEFAULT_REGION
           export AWS_DEFAULT_REGION
           export AWS_ACCESS_KEY_ID

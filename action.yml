@@ -6,12 +6,16 @@ on:
 jobs:
   release:
     uses: ./.github/workflows/release.yml
+    secrets: inherit
 
   scan:
     uses: ./.github/workflows/scan.yml
+    secrets: inherit
 
   tflint:
     uses: ./.github/workflows/lint.yml
+    secrets: inherit
 
   tfdocs:
     uses: ./.github/workflows/docs.yml
+    secrets: inherit

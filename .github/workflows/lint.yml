@@ -24,7 +24,9 @@ jobs:
       - name: setup
         if: steps.cache_tflint.outputs.cache-hit != 'true'
         run: |
-          mkdir bin
+          f [ ! -d "bin" ]; then
+            mkdir bin
+          fi
           export TFLINT_INSTALL_PATH=$(pwd)/bin
           curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
 
