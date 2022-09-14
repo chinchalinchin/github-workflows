@@ -103,5 +103,6 @@ jobs:
           git fetch
           git checkout gh-pages
           cp -ap $(pwd)/../tmp/. ./
+          git add .
           git commit -m "$(echo $(date)) Auto-Documentation" || true
           git push --set-upstream origin gh-pages || true
