@@ -51,6 +51,10 @@ jobs:
     name: terraform security scan
     runs-on: ubuntu-latest
     steps:
+      # see: https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-environment-variable
+      - name: environment
+        run: echo "PATH=$(pwd)/bin:$PATH" >> $GITHUB_ENV
+        
       # https://github.com/actions/checkout
       - name: checkout
         uses: actions/checkout@v2
