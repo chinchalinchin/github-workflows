@@ -42,7 +42,8 @@ jobs:
 
       - name: init
         run: |
-          terraform init 
+          terraform init
+          aws configure
 
       - name: plan
         run: |
