@@ -8,7 +8,7 @@ Depending on the type of package you are developing, you will need to use a diff
 
 ## Terraform
 
-The _.sample.terraform-actions.yml_ can be added to a _.github/workflows_ directory in your repository to utilize the **AutomationLibrary**'s _Continuous Integration_ **Terraform** workflow template. 
+The _.sample.terraform-actions.yml_ can copied into a new _action.yml_ and placed into the _.github/workflows_ directory of your repository to utilize the **AutomationLibrary**'s _Continuous Integration_ **Terraform** workflow template. This file should not need altered, but there is some additional configuration detailed below that is required for these workflows to succeed.
 
 ### Variables
 
