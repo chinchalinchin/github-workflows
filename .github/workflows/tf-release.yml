@@ -30,25 +30,34 @@ jobs:
       AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
 
     steps:
-      # see: https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-environment-variable
+      # GITHUB_ENV: https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-environment-variable
+      # TF_PLUGIN_CACHE_DIR: https://www.terraform.io/cli/config/config-file#provider-plugin-cache
       - name: environment
         run: |
           echo "PATH=$(pwd)/bin:$PATH" >> $GITHUB_ENV
+          echo "TF_PLUGIN_CACHE_DIR=$(pwd)/plugins" >> $GITHUB_ENV
 
       # see: https://github.com/actions/checkout
       - name: checkout
         uses: actions/checkout@v2
 
       # see: https://github.com/actions/cache
-      - name: cache
-        id: cache_tf
+      - name: terraform cache
+        id: cache_terraform
         uses: actions/cache@v3
         with:
           path: bin/terraform
           key: ${{ github.repository }}-tf
 
+      - name: plugin cache
+        id: cache_terraform_plugins
+        uses: actions/cache@v3
+        with:
+          path: plugins
+          key: ${{ github.repository }}-tf-plugins
+
       - name: dependencies
-        if: steps.cache_tf.outputs.cache-hit != 'true'
+        if: steps.cache_terraform.outputs.cache-hit != 'true'
         run: |
           TER_VER=`curl -s https://api.github.com/repos/hashicorp/terraform/releases/latest | grep tag_name | cut -d: -f2 | tr -d \"\,\v | awk '{$1=$1};1'`
           wget https://releases.hashicorp.com/terraform/${TER_VER}/terraform_${TER_VER}_linux_amd64.zip
@@ -59,7 +68,11 @@ jobs:
           mv terraform bin/
 
       - name: initialization
+        if: steps.cache_terraform_plugins.cache-hit != 'true'
         run: |
+          if [ ! -d "plugins" ]; then
+            mkdir plugins
+          fi 
           terraform init
 
       - name: plan

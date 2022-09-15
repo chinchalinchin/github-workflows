@@ -32,14 +32,14 @@ jobs:
           key: ${{ github.repository }}-tflint
       
       - name: plugin cache
-        id: cache_plugins
+        id: cache_tflint_plugins
         uses: actions/cache@v3
         with:
           path: plugins
-          key: ${{ github.repository }}-plugins
+          key: ${{ github.repository }}-tflint-plugins
 
       - name: dependencies
-        if: steps.cache_tflint.outputs.cache-hit != 'true'
+        if: steps.cache_tflint_plugins.outputs.cache-hit != 'true'
         run: |
           if [ ! -d "bin" ]; then
             mkdir bin
