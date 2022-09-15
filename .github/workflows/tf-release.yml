@@ -47,7 +47,7 @@ jobs:
           path: bin/terraform
           key: ${{ github.repository }}-tf
 
-      - name: install terraform
+      - name: dependencies
         if: steps.cache_tf.outputs.cache-hit != 'true'
         run: |
           TER_VER=`curl -s https://api.github.com/repos/hashicorp/terraform/releases/latest | grep tag_name | cut -d: -f2 | tr -d \"\,\v | awk '{$1=$1};1'`
@@ -58,15 +58,21 @@ jobs:
           fi
           mv terraform bin/
 
-      - name: init
+      - name: initialization
         run: |
           terraform init
 
       - name: plan
         run: |
-          echo ${{ secrets.AWS_IAM_USER }}
           terraform plan \
             -var-file .tfvars
+
+      - name: apply
+        if: github.event_name == 'pull_request'
+        run: |
+          terraform apply \
+            -var-file .tfvars \
+            -auto-approve
 
       #- name: Terraform Plan
       #  if: github.event_name == 'pull_request'

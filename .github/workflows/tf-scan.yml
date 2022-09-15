@@ -68,7 +68,7 @@ jobs:
           key: ${{ github.repository }}-tfsec
 
       # see: https://github.com/aquasecurity/tfsec/blob/da18cf5eeb62a9120dcae18aa034e63f2a934f40/scripts/install_linux.sh#L93
-      - name: setup
+      - name: dependencies
         if: steps.cache_tfsec.outputs.cache-hit != 'true'
         run: |
           if [ ! -d "bin" ]; then

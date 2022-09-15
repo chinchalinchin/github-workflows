@@ -60,14 +60,14 @@ jobs:
           path: .venv
           key: ${{ github.repository }}-sphinx-venv
 
-      - name: job dependencies
+      - name: doc dependencies
         if: steps.cache_sphinx.outputs.cache-hit != 'true'
         run: |
           python3 -m venv .venv
           source .venv/bin/activate
           pip3 install -r ./docs/requirements.txt
 
-      - name: setup
+      - name: job dependencies
         if: steps.cache_tfdocs.outputs.cache-hit != 'true'
         run: |
           curl -sSLo ./terraform-docs.tar.gz https://terraform-docs.io/dl/v${TFDOCS_VER}/terraform-docs-v${TFDOCS_VER}-$(uname)-amd64.tar.gz
@@ -104,5 +104,5 @@ jobs:
           git checkout gh-pages
           cp -ap $(pwd)/../tmp/. ./
           git add .
-          git commit -m "$(echo $(date)) Auto-Documentation" || true
+          git commit -m "$(echo $(date)) Auto-Documentation Bot: Beep Boop" || true
           git push --set-upstream origin gh-pages || true
