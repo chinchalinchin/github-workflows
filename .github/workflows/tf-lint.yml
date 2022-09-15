@@ -1,6 +1,6 @@
 name: Terraform Lint
 
-# https://docs.github.com/en/actions/using-workflows/reusing-workflows#overview
+# see: https://docs.github.com/en/actions/using-workflows/reusing-workflows#overview
 on: workflow_call
 
 jobs:
@@ -9,9 +9,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # see: https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-environment-variable
+      # see: 
+        # GITHUB_ENV: https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-environment-variable
+        # TFLINT_INSTALL_PATH: https://github.com/terraform-linters/tflint/blob/b899b18a6be5e8aff7b224dad62fb772b8a5fa0f/install_linux.sh#L68
+        # TFLINT_PLUGIN_DIR: https://github.com/terraform-linters/tflint/blob/master/docs/user-guide/plugins.md
       - name: environment
-        run: echo "PATH=$(pwd)/bin:$PATH" >> $GITHUB_ENV
+        run: |
+          echo "PATH=$(pwd)/bin:$PATH" >> $GITHUB_ENV
+          echo "TFLINT_INSTALL_PATH=$(pwd)/bin" >> $GITHUB_ENV
+          echo "TFLINT_PLUGIN_DIR=$(pwd)/plugins" >> $GITHUB
 
       # see: https://github.com/actions/checkout
       - name: checkout
@@ -32,24 +38,20 @@ jobs:
           path: plugins
           key: ${{ github.repository }}-plugins
 
-      # see: https://github.com/terraform-linters/tflint/blob/b899b18a6be5e8aff7b224dad62fb772b8a5fa0f/install_linux.sh#L68
       - name: dependencies
         if: steps.cache_tflint.outputs.cache-hit != 'true'
         run: |
           if [ ! -d "bin" ]; then
             mkdir bin
           fi
-          export TFLINT_INSTALL_PATH=$(pwd)/bin
           curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
 
-      # see: https://github.com/terraform-linters/tflint/blob/master/docs/user-guide/plugins.md
       - name: plugins
         if: steps.cache_plugins.outputs.cache-hit != 'true'
         run: |
           if [ ! -d "plugins" ]; then
             mkdir plugins
           fi 
-          export TFLINT_PLUGIN_DIR=$(pwd)/plugins
           tflint --init
 
       - name: lint

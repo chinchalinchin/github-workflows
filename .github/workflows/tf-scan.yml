@@ -51,9 +51,13 @@ jobs:
     name: terraform security scan
     runs-on: ubuntu-latest
     steps:
-      # see: https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-environment-variable
+      # see: 
+        # GITHUB_ENV: https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-environment-variable
+        # TFSEC_INSTALL_PATH: https://github.com/aquasecurity/tfsec/blob/da18cf5eeb62a9120dcae18aa034e63f2a934f40/scripts/install_linux.sh#L93
       - name: environment
-        run: echo "PATH=$(pwd)/bin:$PATH" >> $GITHUB_ENV
+        run: |
+          echo "PATH=$(pwd)/bin:$PATH" >> $GITHUB_ENV
+          echo "TFSEC_INSTALL_PATH=$(pwd)/bin" >> $GITHUB_ENV
         
       # https://github.com/actions/checkout
       - name: checkout
@@ -67,14 +71,12 @@ jobs:
           path: bin
           key: ${{ github.repository }}-tfsec
 
-      # see: https://github.com/aquasecurity/tfsec/blob/da18cf5eeb62a9120dcae18aa034e63f2a934f40/scripts/install_linux.sh#L93
       - name: dependencies
         if: steps.cache_tfsec.outputs.cache-hit != 'true'
         run: |
           if [ ! -d "bin" ]; then
             mkdir bin
           fi
-          export TFSEC_INSTALL_PATH=$(pwd)/bin
           curl -s https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install_linux.sh | bash
 
       - name: scan
