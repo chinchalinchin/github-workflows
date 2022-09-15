@@ -50,17 +50,21 @@ git checkout -b gh-pages
 rm -rf *
 ```
 
-You will need to add a _.gitignore_ with the following patterns ignored,
+You will need to add a _.gitignore_ with the following patterns ignored (also included in the _.sample.terraform-gitignore_ file),
 
 ```
 /docs/build/*
 **/.venv
-**/bin
-**/plugins
+**/.terraform
 **/*.tfstate
 **/*.tfstate.backup
+**/.terraform.lock.hcl
+**/bin/**
+**/plugins/**
+**/docs/build/**
 **/*.zip
-**/*.tar.gz
+**/*.tar
+**/*.gz
 ```
 
 And then commit it and push it up to the remote,
