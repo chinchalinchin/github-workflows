@@ -20,10 +20,13 @@ See [TFVar Files](https://www.terraform.io/language/values/variables#variable-de
 
 ### Documentation
 
-You will need a _.terraform-docs.yaml_ in the root of your repository for the _Terraform Docs_ workflow to succeed. You can copy the _.sample.terraform-docs.yml_ into the root of your repository and configure its value for your specific project. The values in this file are used to configure the documentation output in the pipeline. See [here](https://terraform-docs.io/user-guide/configuration/) for more information.
+You will need a _.terraform-docs.yaml_ in the root of your repository for the _Terraform Docs_ workflow to succeed. You can copy the _.sample.terraform-docs.yml_ into the root of your repository and configure its values for your specific project. The values in this file are used to configure `tfdocs` output in the pipeline. See [here](https://terraform-docs.io/user-guide/configuration/) for more information.
 
-_terraform-docs.yaml_ is configured to output the result of processing the **Terraform** modules' _READMEs_ into _docs/source/OVERVIEW.md_. This is so the outputted markdown files can be hooked into the **Sphinx** markdown-to-html processing. See [GH Pages](#gh-pages) below for more information.
+_.terraform-docs.yaml_ is configured to output the result of processing the **Terraform** modules' _READMEs_ into _docs/source/OVERVIEW.md_. This is so the outputted markdown files can be hooked into the **Sphinx** markdown-to-html processing. See [GH Pages](#gh-pages) below for more information.
 
+### Security
+
+You will need a _.terraform-security.yml_ in the root of your repository for the _Terraform Scan_ workflow to succeed. You can copy the _.sample.terraform-scan.yml into the root of your repository and configure its values for your specific project. The values in this file are used to configure `tfsec` output in the pipeline. See [here](https://aquasecurity.github.io/tfsec/v1.27.6/guides/configuration/config/) for more information.
 
 ## GH Pages
 
@@ -79,6 +82,8 @@ git push --set-upstream origin gh-pages
 - [Booz Allen CSN Github Actions](https://github.boozallencsn.com/actions)
 ### Terraform Docs
 - [Configuration File](https://terraform-docs.io/user-guide/configuration/)
+### Terraform Security
+- [Configuration File](https://aquasecurity.github.io/tfsec/v1.27.6/guides/configuration/config/)
 ### Sphinx
 - [Sphinx Getting Started](https://www.sphinx-doc.org/en/master/usage/quickstart.html)
 - [Material for Sphinx](https://bashtage.github.io/sphinx-material/)

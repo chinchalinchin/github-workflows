@@ -79,5 +79,8 @@ jobs:
           fi
           curl -s https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install_linux.sh | bash
 
+      # see: https://aquasecurity.github.io/tfsec/v1.27.6/guides/configuration/config/
       - name: scan
-        run: tfsec .
+        run: |
+          tfsec \
+            --config-file .terraform-security.yml
