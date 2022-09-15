@@ -17,7 +17,7 @@ jobs:
         run: |
           echo "PATH=$(pwd)/bin:$PATH" >> $GITHUB_ENV
           echo "TFLINT_INSTALL_PATH=$(pwd)/bin" >> $GITHUB_ENV
-          echo "TFLINT_PLUGIN_DIR=$(pwd)/plugins" >> $GITHUB
+          echo "TFLINT_PLUGIN_DIR=$(pwd)/plugins" >> $GITHUB_ENV
 
       # see: https://github.com/actions/checkout
       - name: checkout
