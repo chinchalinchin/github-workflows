@@ -15,6 +15,7 @@ on:
 jobs:
   tfdocs:
     name: terraform documentation
+    if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     env:
       USERNAME: ${{ secrets.ACTIONS_BOT_USERNAME }}
