@@ -52,11 +52,14 @@ rm -rf *
 You will need to add a _.gitignore_ with the following patterns ignored,
 
 ```
+/docs/build/*
 **/.venv
 **/bin
-/docs/build/*
-*.tfstate
-*.tfstate.backup
+**/plugins
+**/*.tfstate
+**/*.tfstate.backup
+**/*.zip
+**/*.tar.gz
 ```
 
 And then commit it and push it up to the remote,

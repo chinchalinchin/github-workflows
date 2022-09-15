@@ -18,12 +18,19 @@ jobs:
         uses: actions/checkout@v2
 
       # see: https://github.com/actions/cache
-      - name: cache
+      - name: tflint cache
         id: cache_tflint
         uses: actions/cache@v3
         with:
           path: bin
           key: ${{ github.repository }}-tflint
+      
+      - name: plugin cache
+        id: cache_plugins
+        uses: actions/cache@v3
+        with:
+          path: plugins
+          key: ${{ github.repository }}-plugins
 
       # see: https://github.com/terraform-linters/tflint/blob/b899b18a6be5e8aff7b224dad62fb772b8a5fa0f/install_linux.sh#L68
       - name: dependencies
@@ -35,7 +42,16 @@ jobs:
           export TFLINT_INSTALL_PATH=$(pwd)/bin
           curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
 
+      # see: https://github.com/terraform-linters/tflint/blob/master/docs/user-guide/plugins.md
+      - name: plugins
+        if: steps.cache_plugins.outputs.cache-hit != 'true'
+        run: |
+          if [ ! -d "plugins" ]; then
+            mkdir plugins
+          fi 
+          export TFLINT_PLUGIN_DIR=$(pwd)/plugins
+          tflint --init
+
       - name: lint
         run: |
-          tflint --init
           tflint
