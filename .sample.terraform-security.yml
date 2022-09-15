@@ -1,5 +1,5 @@
-minimum_severity: MEDIUM
+minimum_severity: HIGH
 
 severity_overrides:
   CUS002: ERROR
-  aws-s3-enable-versioning: HIGH
+  aws-s3-enable-versioning: MEDIUM
