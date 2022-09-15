@@ -67,7 +67,7 @@ jobs:
           fi
           mv terraform bin/
 
-      - name: initialization
+      - name: plugins
         if: steps.cache_terraform_plugins.cache-hit != 'true'
         run: |
           if [ ! -d "plugins" ]; then
