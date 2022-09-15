@@ -9,8 +9,3 @@ Welcome to your-project's documentation!
    QUICKSTART
    CONFIGURATION
    CONTRIBUTING
-
-search
-======
-
-* :ref:`search`
