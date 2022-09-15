@@ -54,6 +54,7 @@ You will need to add a _.gitignore_ with the following patterns ignored,
 ```
 **/.venv
 **/bin
+/docs/build/*
 *.tfstate
 *.tfstate.backup
 ```

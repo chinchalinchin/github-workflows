@@ -83,7 +83,7 @@ jobs:
           terraform-docs --config .terraform-docs.yml .
 
       - name: build html
-        run: 
+        run: |
           source .venv/bin/activate
           cd docs
           make html
@@ -92,7 +92,7 @@ jobs:
       - name: copy html to tmp
         run: |
           mkdir $(pwd)/../tmp
-          cp -ap ./docs/build/html/. $(pwd)/../tmp
+          cp -ap ./docs/build/html/. $(pwd)/../tmp/
 
       # note: disjunction of command with true to avoid possible failures
       - name: commit
