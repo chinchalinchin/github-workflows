@@ -41,8 +41,6 @@ HTML will be generated from the markdown in the _docs/source_ directory and proc
 
 Copy the contents of _docs_ in this repository into a _docs_ directory in your own repository and configure it for your specific project.
 
-**NOTE**: You will also need to add a _.nojekyll_ file to your repository root on the _gh-pages_ branch in order for the **Github Pages** integration to work properly. See [here](https://github.blog/2009-12-29-bypassing-jekyll-on-github-pages/) for more information.
-
 **NOTE**: After the pipeline has built the document the first time, you can find the URL for your documentation webpage in your _Repository_ > _Settings_ > _Pages_.
 
 **NOTE**: You will need to initialize the _gh-pages_ branch before the pipeline can hook into it. The branch will need to be empty.
