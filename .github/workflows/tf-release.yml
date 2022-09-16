@@ -17,6 +17,7 @@ on:
       AWS_DEFAULT_REGION:
         required: true
         description: Default region of the AWS service account
+        
 jobs:
 
   release:
@@ -30,8 +31,9 @@ jobs:
       AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
 
     steps:
-      # GITHUB_ENV: https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-environment-variable
-      # TF_PLUGIN_CACHE_DIR: https://www.terraform.io/cli/config/config-file#provider-plugin-cache
+      # see: 
+        # GITHUB_ENV: https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-environment-variable
+        # TF_PLUGIN_CACHE_DIR: https://www.terraform.io/cli/config/config-file#provider-plugin-cache
       - name: environment
         run: |
           echo "PATH=$(pwd)/bin:$PATH" >> $GITHUB_ENV
@@ -73,16 +75,27 @@ jobs:
           if [ ! -d "plugins" ]; then
             mkdir plugins
           fi 
-          terraform init
+          terraform init \
+            -input=false
 
       - name: plan
         run: |
           terraform plan \
-            -var-file .tfvars
+            -var-file .tfvars \
+            -input=false \
+            -auto-approve
 
       - name: apply
         if: github.event_name == 'pull_request'
         run: |
           terraform apply \
             -var-file .tfvars \
+            -input=false \
+            -auto-approve 
+      
+      - name: destroy
+        if: github.event_name == 'pull_request'
+          terraform destory \
+            -var-file .tfvars \
+            -input=false \
             -auto-approve

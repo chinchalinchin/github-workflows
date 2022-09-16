@@ -15,6 +15,7 @@ on:
 jobs:
   tfdocs:
     name: terraform documentation
+    # NOTE: this job only runs on pull request to prevent pushing back to the repo on every commit.
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     env:
@@ -79,10 +80,12 @@ jobs:
           fi
           mv terraform-docs bin
 
+      # see: https://terraform-docs.io/user-guide/configuration/
       - name: build docs
         run: |
           terraform-docs --config .terraform-docs.yml .
 
+      # see: https://www.sphinx-doc.org/en/master/
       - name: build html
         run: |
           source .venv/bin/activate

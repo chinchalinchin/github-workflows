@@ -52,7 +52,9 @@ jobs:
           if [ ! -d "plugins" ]; then
             mkdir plugins
           fi 
-          tflint --init
+          tflint \
+            --init \
+            --module
 
       - name: lint
         run: |
