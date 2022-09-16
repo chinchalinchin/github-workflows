@@ -96,7 +96,7 @@ jobs:
       - name: destroy
         if: github.event_name == 'pull_request'
         run: |
-          terraform destory \
+          terraform destroy \
             -var-file .tfvars \
             -input=false \
             -auto-approve
