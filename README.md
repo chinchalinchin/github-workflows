@@ -12,7 +12,7 @@ The _.sample.terraform-actions.yml_ can copied into a new _action.yml_ and place
 
 ## Layout
 
-The root directory should, at minimum, contain a _/docs/_ directory, a _README.md_ and a _provider.tf_. The _provider.tf_ must exist because its hash is used a key for the installation and plugin caches in the pipeline. See [Documentation](#documentation) for more information on the docs structure and workflow.
+The root directory should, at minimum, contain a _/docs/_ directory, a _README.md_, a _.tfvars_ file and a _provider.tf_ file. The _provider.tf_ must exist because its hash is used a key for the installation and plugin caches in the pipeline. See [Documentation](#documentation) for more information on the docs structure and workflow.
 
 Refer to the [terraform-module-template](https://github.boozallencsn.com/AutomationLibrary/terraform-module-template) for a pre-configured project setup according to our best practices guidelines.
 
@@ -21,6 +21,8 @@ Refer to the [terraform-module-template](https://github.boozallencsn.com/Automat
 If your modules contain variables without default parameters, then in order to test the release of your module in the CI pipeline, you will need to copy the sample file _.sample.tfvars_ into a file named _.tfvars_ in the root of the repository and adjust the variables to your particular project. This file is consumed in the _.github/workflows/tf-release.yml_ during the `plan`, `apply` and `destroy` steps.
 
 See [TFVar Files](https://www.terraform.io/language/values/variables#variable-definitions-tfvars-files) for more info. 
+
+**NOTE**: Even if your module does _not_ have variables (unlikely, but possible), you will still need an empty _.tfvars_ file in your repository root for the `release` workflow to succeed.
 
 **NOTE**: Do not include sensitive include in the _.tfvars_ file file. Instead, if you need credentials or keys in your parameters, [add a secret](https://docs.github.com/en/actions/security-guides/encrypted-secrets) to your repository and inject it into an [environment variable](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idstepsenv).
 
