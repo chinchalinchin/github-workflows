@@ -64,8 +64,10 @@ jobs:
       - name: dependencies
         if: steps.cache_terraform.outputs.cache-hit != 'true'
         run: |
-          wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip
-          unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip
+          wget \
+            -O tf.zip \
+            https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip
+          unzip tf.zip
           if [ ! -d "bin" ]; then
             mkdir bin
           fi
