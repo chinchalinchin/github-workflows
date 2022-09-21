@@ -10,6 +10,12 @@ Depending on the type of package you are developing, you will need to use a diff
 
 The _.sample.terraform-actions.yml_ can copied into a new _action.yml_ and placed into the _.github/workflows_ directory of your repository to utilize the **AutomationLibrary**'s _Continuous Integration_ **Terraform** workflow template. This file should not need altered, but there is some additional configuration detailed below that is required for these workflows to succeed.
 
+## Layout
+
+The root directory should, at minimum, contain a _/docs/_ directory, a _README.md_ and a _provider.tf_. The _provider.tf_ must exist because its hash is used a key for the installation and plugin caches in the pipeline. See [Documentation](#documentation) for more information on the docs structure and workflow.
+
+Refer to the [terraform-module-template](https://github.boozallencsn.com/AutomationLibrary/terraform-module-template) for a pre-configured project setup according to our best practices guidelines.
+
 ### Variables
 
 If your modules contain variables without default parameters, then in order to test the release of your module in the CI pipeline, you will need to copy the sample file _.sample.tfvars_ into a file named _.tfvars_ in the root of the repository and adjust the variables to your particular project. This file is consumed in the _.github/workflows/tf-release.yml_ during the `plan`, `apply` and `destroy` steps.
