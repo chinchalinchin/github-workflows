@@ -15,7 +15,7 @@ on:
 
 jobs:
   tfdocs:
-    name: terraform documentation
+    name: workflows documentation
     # NOTE: this job only runs on pull request to prevent pushing back to the repo on every commit.
     runs-on: ubuntu-latest
     env:
