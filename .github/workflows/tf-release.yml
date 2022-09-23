@@ -59,7 +59,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: plugins
-          key: ${{ github.repository }}-$${{ hashFiles('provider.tf')}}-tf-plugins
+          key: ${{ github.repository }}-$${{ hashFiles('provider.tf')}}-tf-plugins-invalid
 
       # NOTE: manual install to make caching easier
       - name: dependencies
