@@ -7,10 +7,10 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 # NOTE: Add your project's information here.
-project = 'your-project'
-copyright = 'your-copyright'
-author = 'your-names'
-release = 'your-release'
+project = 'Action Workflows'
+copyright = 'Automation Library, 2022'
+author = 'Booz Allen Hamilton'
+release = '1.0.0'
 
 # NOTE: the rest of the configuration should not be changed, unless you want to customize
 #        the appearance of your documentation page.
@@ -60,18 +60,18 @@ html_theme_options = {
 
     # Specify a base_url used to generate sitemap.xml. If not
     # specified, then no sitemap will be built.
-    'base_url': 'https://pages.github.boozallencsn.com/AutomationLibrary/aws-synthetics-heartbeat-canary/',
+    'base_url': 'https://pages.github.boozallencsn.com/AutomationLibrary/actions-workflows/',
 
     # Set the color and the accent color
     'color_primary': 'blue',
     'color_accent': 'light-blue',
 
     # Set the repo location to get a badge with stats
-    'repo_url': 'https://github.boozallencsn.com/AutomationLibrary/aws-synthetics-heartbeat-canary',
-    'repo_name': 'aws-synthetics-heartbeat-canary',
+    'repo_url': 'https://github.boozallencsn.com/AutomationLibrary/actions-workflows',
+    'repo_name': 'action-workflows',
 
     # Visible levels of the global TOC; -1 means unlimited
-    'globaltoc_depth': -1,
+    'globaltoc_depth': 2,
     # If False, expand all TOC entries
     'globaltoc_collapse': False,
     # If True, show hidden TOC entries
