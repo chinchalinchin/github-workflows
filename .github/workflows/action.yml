@@ -5,9 +5,6 @@ on:
     branches:
       - feature/**
       - hotfix/**
-      # NOTE: main/master are just for actions-workflows repo, to build docs on push
-      - main
-      - master
 
   # see: https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#pull_request
   pull_request:
