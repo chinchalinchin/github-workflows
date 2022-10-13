@@ -30,14 +30,14 @@ jobs:
         uses: actions/cache@v3
         with:
           path: bin
-          key: ${{ github.repository }}-$${{ hashFiles('provider.tf')}}-tflint
+          key: ${{ github.repository }}-${{ hashFiles('provider.tf')}}-tflint
       
       - name: plugin cache
         id: cache_tflint_plugins
         uses: actions/cache@v3
         with:
           path: plugins
-          key: ${{ github.repository }}-$${{ hashFiles('provider.tf')}}-tflint-plugins
+          key: ${{ github.repository }}-${{ hashFiles('provider.tf')}}-tflint-plugins
 
       - name: dependencies
         if: steps.cache_tflint_plugins.outputs.cache-hit != 'true'

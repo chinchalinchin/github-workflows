@@ -68,7 +68,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: bin/terraform
-          key: ${{ github.repository }}-$${{ hashFiles('provider.tf')}}-tf
+          key: ${{ github.repository }}-${{ hashFiles('provider.tf')}}-tf
 
       - name: plugin cache
         id: cache_terraform_plugins
@@ -76,7 +76,7 @@ jobs:
         with:
           path: plugins
           # TODO: invalidating cache, remove `invalid` after testing...
-          key: ${{ github.repository }}-$${{ hashFiles('provider.tf')}}-tf-plugins-invalid
+          key: ${{ github.repository }}-${{ hashFiles('provider.tf')}}-tf-plugins-invalid
 
       # NOTE: manual install to make caching easier
       - name: job dependencies

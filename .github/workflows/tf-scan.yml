@@ -34,7 +34,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: .venv
-          key: ${{ github.repository }}-$${{ hashFiles('provider.tf')}}-checkov-venv
+          key: ${{ github.repository }}-${{ hashFiles('provider.tf')}}-checkov-venv
 
       - name: job dependencies
         if: steps.cache_checkov.outputs.cache-hit != 'true'
