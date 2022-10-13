@@ -84,7 +84,10 @@ jobs:
       # see: https://terraform-docs.io/user-guide/configuration/
       - name: build docs
         run: |
-          terraform-docs --config .terraform-docs.yml .
+          if [ -f ".terraform-docs.yml" ]
+          then
+            terraform-docs --config .terraform-docs.yml .
+          fi
 
       # see: https://www.sphinx-doc.org/en/master/
       - name: build html
