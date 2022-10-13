@@ -41,16 +41,14 @@ jobs:
     steps:
       - name: system dependencies
         run: |
-          su
-          apt-get update -y
-          apt-get install -y jq
+          sudo apt-get update -y
+          sudo apt-get install -y jq
       # see: 
         # GITHUB_ENV: https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-environment-variable
         # TF_PLUGIN_CACHE_DIR: https://www.terraform.io/cli/config/config-file#provider-plugin-cache
         # TF_ENV unpacking: https://stackoverflow.com/questions/48512914/exporting-json-to-environment-variables
       - name: environment
         run: |
-          su
           echo "PATH=$(pwd)/bin:$PATH" >> $GITHUB_ENV
           echo "TF_PLUGIN_CACHE_DIR=$(pwd)/plugins" >> $GITHUB_ENV
           for s in $(echo $TF_ENV | jq -r "to_entries|map(\"\(.key)=\(.value|tostring)\")|.[]" ); do
