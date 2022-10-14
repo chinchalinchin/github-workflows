@@ -109,12 +109,12 @@ jobs:
       - name: plan 
         run: |
           IFS=', ' read -r -a M_ARRAY <<< "$MODULES"
-          for index in "${!array[@]}"
+          for element in "${M_ARRAY[@]}"
           do
-            echo "Planning ${array[index]} module"
+            echo "Planning $element module"
             terraform plan \
               -var-file .tfvars \
-              -target="${array[index]}" \
+              -target="$element" \
               -input=false 
           done
             
@@ -122,13 +122,13 @@ jobs:
         if: github.event_name == 'pull_request'
         run: |
           IFS=', ' read -r -a M_ARRAY <<< "$MODULES"
-          for index in "${!array[@]}"
+          for element in "${M_ARRAY[@]}"
           do
-            echo "Deploying ${array[index]} module"
+            echo "Deploying $element module"
             terraform apply \
               -var-file .tfvars \
               -input=false \
-              -target="${array[index]}" \
+              -target="$element" \
               -auto-approve 
           done
       
@@ -136,12 +136,12 @@ jobs:
         if: github.event_name == 'pull_request'
         run: |
           IFS=', ' read -r -a M_ARRAY <<< "$MODULES"
-          for index in "${!array[@]}"
+          for element in "${M_ARRAY[@]}"
           do
-            echo "Destroying ${array[index]} module"
+            echo "Destroying $element module"
             terraform destroy \
               -var-file .tfvars \
               -input=false \
-              -target="${array[index]}" \
+              -target="$element" \
               -auto-approve
           done
