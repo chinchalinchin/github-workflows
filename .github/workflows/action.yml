@@ -1,4 +1,4 @@
-name: terraform workflows
+name: documentation
 
 on:
   push:
@@ -7,15 +7,12 @@ on:
       - main
 
 jobs:
-  
-    name: terraform documentation
-    # NOTE: this job only runs on pull request to prevent pushing back to the repo on every commit.
-    if: github.event_name == 'pull_request'
+  Docs:
+    name: actions-workflows documentation
     runs-on: ubuntu-latest
     env:
       USERNAME: ${{ secrets.ACTIONS_BOT_USERNAME }}
       EMAIL: ${{ secrets.ACTIONS_BOT_EMAIL }}
-      TFDOCS_VER: 0.16.0
 
     steps:
       # see: https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-environment-variable
@@ -41,7 +38,6 @@ jobs:
       - name: checkout
         uses: actions/checkout@v2
 
-
       - name: sphinx cache
         id: cache_sphinx
         uses: actions/cache@v3
@@ -55,7 +51,7 @@ jobs:
           python3 -m venv .venv
           source .venv/bin/activate
           pip3 install -r ./docs/requirements.txt
-          
+
       # see: https://www.sphinx-doc.org/en/master/
       - name: build html
         run: |

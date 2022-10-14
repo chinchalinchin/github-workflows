@@ -10,6 +10,8 @@ The _.sample.terraform-actions.yml_ can copied into a new _action.yml_ and place
 
 These names _must_ match the names assigned to the modules in **Terraform**; the pipeline uses this variable to determine which modules are within a given project.
 
+**NOTE**: DO NOT USE THE _action.yml_ IN THE _.github/workflows/_ DIRECTORY; USE _.sample.terraform-actions.yaml_ IN THE REPOSITORY ROOT! The one found in the _.github/workflows_ directory of this repository is used to build the docs for this repo.
+
 ## Layout
 
 The root directory should, at minimum, contain a _/docs/_ directory, a _README.md_, a _.tfvars_ file and a _provider.tf_ file. The _provider.tf_ must exist because its hash is used a key for the installation and plugin caches in the pipeline. See [Documentation](#documentation) for more information on the docs structure and workflow.
