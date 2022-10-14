@@ -114,6 +114,7 @@ jobs:
             echo "Planning ${array[index]} module"
             terraform plan \
               -var-file .tfvars \
+              -target="${array[index]}" \
               -input=false 
           done
             
@@ -127,6 +128,7 @@ jobs:
             terraform apply \
               -var-file .tfvars \
               -input=false \
+              -target="${array[index]}" \
               -auto-approve 
           done
       
@@ -140,5 +142,6 @@ jobs:
             terraform destroy \
               -var-file .tfvars \
               -input=false \
+              -target="${array[index]}" \
               -auto-approve
           done
