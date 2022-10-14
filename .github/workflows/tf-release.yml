@@ -104,29 +104,41 @@ jobs:
           echo "Using $TERRAFORM_STATE_KEY to initialize Terraform..."
           terraform init \
             -input=false \
-            -backend-config="key=$TERRAFORM_STATE_KEY"
+            -backend-config="key=${TERRAFORM_STATE_KEY}/terraform.tfstate"
 
       - name: plan 
         run: |
-          echo $MODULES
-          terraform plan \
-            -var-file .tfvars \
-            -input=false 
+          IFS=', ' read -r -a M_ARRAY <<< "$MODULES"
+          for index in "${!array[@]}"
+          do
+            echo "Planning ${array[index]} module"
+            terraform plan \
+              -var-file .tfvars \
+              -input=false 
+          done
             
       - name: apply
         if: github.event_name == 'pull_request'
         run: |
-          echo $MODULES
-          terraform apply \
-            -var-file .tfvars \
-            -input=false \
-            -auto-approve 
+          IFS=', ' read -r -a M_ARRAY <<< "$MODULES"
+          for index in "${!array[@]}"
+          do
+            echo "Deploying ${array[index]} module"
+            terraform apply \
+              -var-file .tfvars \
+              -input=false \
+              -auto-approve 
+          done
       
       - name: destroy
         if: github.event_name == 'pull_request'
         run: |
-          echo $MODULES
-          terraform destroy \
-            -var-file .tfvars \
-            -input=false \
-            -auto-approve
+          IFS=', ' read -r -a M_ARRAY <<< "$MODULES"
+          for index in "${!array[@]}"
+          do
+            echo "Destroying ${array[index]} module"
+            terraform destroy \
+              -var-file .tfvars \
+              -input=false \
+              -auto-approve
+          done
