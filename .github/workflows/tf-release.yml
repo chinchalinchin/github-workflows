@@ -3,6 +3,10 @@ name: Terraform Release
 # https://docs.github.com/en/actions/using-workflows/reusing-workflows#overview
 on: 
   workflow_call:
+    inputs: 
+      MODULES:
+        required: true
+        description: Comma separated list of modules that will be deployed.
     # see: https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#onworkflow_callsecrets
     secrets:
       AWS_IAM_USER:
@@ -101,14 +105,20 @@ jobs:
             -backend-config="key=$TERRAFORM_STATE_KEY"
 
       - name: plan
+        with:
+          MODULES: ${{ inputs.MODULES }}
         run: |
+          echo $MODULES
           terraform plan \
             -var-file .tfvars \
             -input=false 
             
       - name: apply
         if: github.event_name == 'pull_request'
+        with:
+          MODULES: ${{ inputs.MODULES }}
         run: |
+          echo $MODULES
           terraform apply \
             -var-file .tfvars \
             -input=false \
@@ -116,7 +126,10 @@ jobs:
       
       - name: destroy
         if: github.event_name == 'pull_request'
+        with:
+          MODULES: ${{ inputs.MODULES }}
         run: |
+          echo $MODULES
           terraform destroy \
             -var-file .tfvars \
             -input=false \
