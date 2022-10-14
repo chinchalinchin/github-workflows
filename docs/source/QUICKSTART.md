@@ -1,6 +1,6 @@
 # Quickstart
 
-Depending on the type of package you are developing, you will need to use a different sample file found within this repository to setup your _Continuous Integration_.
+Depending on the type of package you are developing, you will need to use a different sample file found within this repository to setup your _Continuous Integration_. Currently, we only support **Terraform** module _continuous integration_. 
 
 ## Terraform
 
@@ -12,7 +12,7 @@ These names _must_ match the names assigned to the modules in **Terraform**; the
 
 **NOTE**: DO NOT USE THE _action.yml_ IN THE _.github/workflows/_ DIRECTORY; USE _.sample.terraform-actions.yaml_ IN THE REPOSITORY ROOT! The one found in the _.github/workflows_ directory of this repository is used to build the docs for this repo.
 
-## Layout
+### Layout
 
 The root directory should, at minimum, contain a _/docs/_ directory, a _README.md_, a _.tfvars_ file and a _provider.tf_ file. The _provider.tf_ must exist because its hash is used a key for the installation and plugin caches in the pipeline. See [Documentation](#documentation) for more information on the docs structure and workflow.
 
@@ -20,7 +20,7 @@ Refer to the [terraform-module-template](https://github.boozallencsn.com/Automat
 
 Moreover, the **Terraform** repository _must_ be structured as modules. The pipeline will attempt to deploy each module separately, one at a time.
 
-## State 
+### State 
 
 By default, the  **Terraform** _provider.tf_ files from the [terraform-module-template](https://github.boozallencsn.com/AutomationLibrary/terraform-module-template) has a block for the **s3** state backend. If you want to develop locally with your own local state, you must explicitly declare this,
 
