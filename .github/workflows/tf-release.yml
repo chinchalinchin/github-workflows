@@ -114,7 +114,7 @@ jobs:
             echo "Planning $element module"
             terraform plan \
               -var-file .tfvars \
-              -target="$element" \
+              -target="module.${element}" \
               -input=false 
           done
             
@@ -128,7 +128,7 @@ jobs:
             terraform apply \
               -var-file .tfvars \
               -input=false \
-              -target="$element" \
+              -target="module.${element}" \
               -auto-approve 
           done
       
@@ -142,6 +142,6 @@ jobs:
             terraform destroy \
               -var-file .tfvars \
               -input=false \
-              -target="$element" \
+              -target="module.${element}" \
               -auto-approve
           done
