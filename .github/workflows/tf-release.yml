@@ -5,8 +5,9 @@ on:
   workflow_call:
     inputs: 
       MODULES:
+        type: string
         required: true
-        description: Comma separated list of modules that will be deployed.
+        description: Comma separated list of Terraform modules that will be deployed.
     # see: https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#onworkflow_callsecrets
     secrets:
       AWS_IAM_USER:
