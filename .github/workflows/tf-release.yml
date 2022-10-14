@@ -3,6 +3,11 @@ name: Terraform Release
 # https://docs.github.com/en/actions/using-workflows/reusing-workflows#overview
 on: 
   workflow_call:
+    inputs: 
+      MODULES:
+        type: string
+        required: true
+        description: Comma separated list of Terraform modules that will be deployed.
     # see: https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#onworkflow_callsecrets
     secrets:
       AWS_IAM_USER:
@@ -34,8 +39,9 @@ jobs:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+      MODULES: ${{ inputs.MODULES }}
       TF_ENV: ${{ secrets.TF_ENV }}
-      TERRAFORM_STATE_KEY: ${{ github.repository }} / ${{ github.ref_name }}
+      TERRAFORM_STATE_KEY: ${{ github.repository }}/${{ github.ref_name }}/terraform.tfstate
       TERRAFORM_VERSION: 1.3.0
 
     steps:
@@ -98,26 +104,44 @@ jobs:
           echo "Using $TERRAFORM_STATE_KEY to initialize Terraform..."
           terraform init \
             -input=false \
-            -backend-config="key=$TERRAFORM_STATE_KEY"
+            -backend-config="key=${TERRAFORM_STATE_KEY}"
 
-      - name: plan
+      - name: plan 
         run: |
-          terraform plan \
-            -var-file .tfvars \
-            -input=false 
+          IFS=', ' read -r -a M_ARRAY <<< "$MODULES"
+          for element in "${M_ARRAY[@]}"
+          do
+            echo "Planning $element module"
+            terraform plan \
+              -var-file .tfvars \
+              -target="module.${element}" \
+              -input=false 
+          done
             
       - name: apply
         if: github.event_name == 'pull_request'
         run: |
-          terraform apply \
-            -var-file .tfvars \
-            -input=false \
-            -auto-approve 
+          IFS=', ' read -r -a M_ARRAY <<< "$MODULES"
+          for element in "${M_ARRAY[@]}"
+          do
+            echo "Deploying $element module"
+            terraform apply \
+              -var-file .tfvars \
+              -input=false \
+              -target="module.${element}" \
+              -auto-approve 
+          done
       
       - name: destroy
         if: github.event_name == 'pull_request'
         run: |
-          terraform destroy \
-            -var-file .tfvars \
-            -input=false \
-            -auto-approve
+          IFS=', ' read -r -a M_ARRAY <<< "$MODULES"
+          for element in "${M_ARRAY[@]}"
+          do
+            echo "Destroying $element module"
+            terraform destroy \
+              -var-file .tfvars \
+              -input=false \
+              -target="module.${element}" \
+              -auto-approve
+          done

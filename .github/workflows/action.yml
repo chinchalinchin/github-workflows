@@ -23,6 +23,9 @@ on:
 jobs:
   Release:
     uses: AutomationLibrary/actions-workflows/.github/workflows/tf-release.yml@main
+    with:
+      # NOTE: comma-separated list of module names that are being deployed!
+      MODULES: "module_1_name,module_2_name"
     secrets:
       AWS_IAM_USER: ${{ secrets.AWS_IAM_USER }}
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
