@@ -7,5 +7,4 @@ Welcome to your-project's documentation!
 
    OVERVIEW
    QUICKSTART
-   CONFIGURATION
    CONTRIBUTING

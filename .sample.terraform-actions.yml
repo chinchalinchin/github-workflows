@@ -23,13 +23,19 @@ on:
 jobs:
   Release:
     uses: AutomationLibrary/actions-workflows/.github/workflows/tf-release.yml@main
+    with:
+      # NOTE: comma-separated list of module names that are being deployed!
+      MODULES: "module_1_name,module_2_name"
     secrets:
       AWS_IAM_USER: ${{ secrets.AWS_IAM_USER }}
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+      # NOTE: Uncomment this line if your workflow requires secret Terraform variables! 
+      #         See documentation /docs/source/QUICKSTART.md#TF_ENV for more info.
+      # TF_ENV: ${{ secrets.TF_ENV }}
     needs: [ Scan, Lint, Docs ]
-    
+
   Scan:
     uses: AutomationLibrary/actions-workflows/.github/workflows/tf-scan.yml@main
 
@@ -41,3 +47,4 @@ jobs:
     secrets:
       ACTIONS_BOT_USERNAME: ${{ secrets.ACTIONS_BOT_USERNAME }}
       ACTIONS_BOT_EMAIL: ${{ secrets.ACTIONS_BOT_EMAIL }}
+

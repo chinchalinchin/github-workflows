@@ -3,48 +3,83 @@ name: terraform workflows
 on:
   push:
     branches:
-      - feature/**
-      - hotfix/**
-
-  # see: https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#pull_request
-  pull_request:
-    branches:
-      - dev
       - master
       - main
 
-  workflow_dispatch:
-
-# NOTE: if the GHES version is ever updated to the latest version, instead of passing the secrets 
-#       individually, the `inherit` key word can be used. Until such time, enumerating each secret
-#       for the workflow that uses it is required.
-# 3.5 docs: https://docs.github.com/en/enterprise-server@3.5/actions/using-workflows/reusing-workflows#passing-inputs-and-secrets-to-a-reusable-workflow
-# current docs: https://docs.github.com/en/actions/using-workflows/reusing-workflows#passing-secrets-to-nested-workflows
 jobs:
-  Release:
-    uses: AutomationLibrary/actions-workflows/.github/workflows/tf-release.yml@main
-    with:
-      # NOTE: comma-separated list of module names that are being deployed!
-      MODULES: "module_1_name,module_2_name"
-    secrets:
-      AWS_IAM_USER: ${{ secrets.AWS_IAM_USER }}
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
-      # NOTE: Uncomment this line if your workflow requires secret Terraform variables! 
-      #         See documentation /docs/source/QUICKSTART.md#TF_ENV for more info.
-      # TF_ENV: ${{ secrets.TF_ENV }}
-    needs: [ Scan, Lint, Docs ]
+  
+    name: terraform documentation
+    # NOTE: this job only runs on pull request to prevent pushing back to the repo on every commit.
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    env:
+      USERNAME: ${{ secrets.ACTIONS_BOT_USERNAME }}
+      EMAIL: ${{ secrets.ACTIONS_BOT_EMAIL }}
+      TFDOCS_VER: 0.16.0
 
-  Scan:
-    uses: AutomationLibrary/actions-workflows/.github/workflows/tf-scan.yml@main
+    steps:
+      # see: https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-environment-variable
+      - name: environment
+        run: echo "PATH=$(pwd)/bin:$PATH" >> $GITHUB_ENV
 
-  Lint:
-    uses: AutomationLibrary/actions-workflows/.github/workflows/tf-lint.yml@main
+      # TODO: how to cache system dependencies?
+      # see: https://github.com/cli/cli/issues/6175#issuecomment-1238477714
+      - name: system dependencies
+        run: |
+          curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
+          && sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg \
+          && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+          
+          sudo apt-get update -y 
+          sudo apt-get install -y \
+                                  python3-dev \
+                                  python3-venv \
+                                  python3-pip \
+                                  build-essential
 
-  Docs:
-    uses: AutomationLibrary/actions-workflows/.github/workflows/tf-docs.yml@main
-    secrets:
-      ACTIONS_BOT_USERNAME: ${{ secrets.ACTIONS_BOT_USERNAME }}
-      ACTIONS_BOT_EMAIL: ${{ secrets.ACTIONS_BOT_EMAIL }}
+      # see: https://github.com/actions/checkout
+      - name: checkout
+        uses: actions/checkout@v2
+
+
+      - name: sphinx cache
+        id: cache_sphinx
+        uses: actions/cache@v3
+        with:
+          path: .venv
+          key: ${{ github.repository }}-${{ hashFiles('provider.tf')}}-sphinx-venv
+
+      - name: doc dependencies
+        if: steps.cache_sphinx.outputs.cache-hit != 'true'
+        run: |
+          python3 -m venv .venv
+          source .venv/bin/activate
+          pip3 install -r ./docs/requirements.txt
+          
+      # see: https://www.sphinx-doc.org/en/master/
+      - name: build html
+        run: |
+          source .venv/bin/activate
+          cd docs
+          make html
+          cd ..
+          
+      - name: copy html to tmp
+        run: |
+          mkdir $(pwd)/../tmp
+          cp -ap ./docs/build/html/. $(pwd)/../tmp/
+
+      # note: disjunction of command with true to avoid possible failures
+      - name: commit
+        run: |
+          git config --global user.name $USERNAME
+          git config --global user.email $EMAIL
+          git add .
+          git stash
+          git fetch
+          git checkout gh-pages
+          cp -ap $(pwd)/../tmp/. ./
+          git add .
+          git commit -m "$(echo $(date)) Auto-Documentation Bot: Beep Boop" || true
+          git push --set-upstream origin gh-pages || true
 

@@ -4,13 +4,19 @@ Depending on the type of package you are developing, you will need to use a diff
 
 ## Terraform
 
-The _.sample.terraform-actions.yml_ can copied into a new _action.yml_ and placed into the _.github/workflows_ directory of your repository to utilize the **AutomationLibrary**'s _Continuous Integration_ **Terraform** workflow template. This file should not need altered, but there is some additional configuration detailed below that is required for these workflows to succeed.
+The _.sample.terraform-actions.yml_ can copied into a new _action.yml_ and placed into the _.github/workflows_ directory of your repository to utilize the **AutomationLibrary**'s _Continuous Integration_ **Terraform** workflow template. This file only needs one piece of information altered: You will need to update the names of the modules passed into the _Release_ action through the `input` variable,
+
+![](./assets/module_input.png)
+
+These names _must_ match the names assigned to the modules in **Terraform**; the pipeline uses this variable to determine which modules are within a given project.
 
 ## Layout
 
 The root directory should, at minimum, contain a _/docs/_ directory, a _README.md_, a _.tfvars_ file and a _provider.tf_ file. The _provider.tf_ must exist because its hash is used a key for the installation and plugin caches in the pipeline. See [Documentation](#documentation) for more information on the docs structure and workflow.
 
 Refer to the [terraform-module-template](https://github.boozallencsn.com/AutomationLibrary/terraform-module-template) for a pre-configured project setup according to our best practices guidelines.
+
+Moreover, the **Terraform** repository _must_ be structured as modules. The pipeline will attempt to deploy each module separately, one at a time.
 
 ## State 
 
