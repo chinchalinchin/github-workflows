@@ -85,9 +85,8 @@ jobs:
         run: |
           docker build \
             --file $(pwd)/$DOCKERFILE_DIR/Dockerfile \
-            --tag $IMG_NAME:$IMG_TAG \
+            --tag $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMG_NAME:$IMG_TAG \
             $(pwd)/$DOCKER_BUILD_CONTEXT
-
 
       - name: push
         run: |
