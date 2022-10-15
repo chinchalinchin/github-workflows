@@ -24,7 +24,7 @@ jobs:
   
 
   Release:
-    uses: AutomationLibrary/actions-workflows/.github/workflows/reusable/ecr/push.yml@main
+    uses: AutomationLibrary/actions-workflows/.github/workflows/ecr-push.yml@main
     with:
       IMAGE_NAME: "my-image"
       IMAGE_TAG: "my-tag"
@@ -37,7 +37,7 @@ jobs:
     needs: [ Scan, Lint, Docs ]
 
   Docs:
-    uses: AutomationLibrary/actions-workflows/.github/workflows/reusable/default/docs.yml@main
+    uses: AutomationLibrary/actions-workflows/.github/workflows/gh-pages.yml@main
     secrets:
       ACTIONS_BOT_USERNAME: ${{ secrets.ACTIONS_BOT_USERNAME }}
       ACTIONS_BOT_EMAIL: ${{ secrets.ACTIONS_BOT_EMAIL }}
