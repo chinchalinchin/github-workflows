@@ -21,27 +21,20 @@ on:
 # 3.5 docs: https://docs.github.com/en/enterprise-server@3.5/actions/using-workflows/reusing-workflows#passing-inputs-and-secrets-to-a-reusable-workflow
 # current docs: https://docs.github.com/en/actions/using-workflows/reusing-workflows#passing-secrets-to-nested-workflows
 jobs:
+  
+
   Release:
-    uses: AutomationLibrary/actions-workflows/.github/workflows/reusable/terraform/release.yml@main
+    uses: AutomationLibrary/actions-workflows/.github/workflows/reusable/ecr/push.yml@main
     with:
-      # NOTE: comma-separated list of module names that are being deployed!
-      #       modules will be deployed in the order they are listed.
-      MODULES: "module_1_name,module_2_name"
+      IMAGE_NAME: "my-image"
+      IMAGE_TAG: "my-tag"
     secrets:
+      AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
       AWS_IAM_USER: ${{ secrets.AWS_IAM_USER }}
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
-      # NOTE: Uncomment this line if your workflow requires secret Terraform variables! 
-      #         See documentation /docs/source/QUICKSTART.md#TF_ENV for more info.
-      # TF_ENV: ${{ secrets.TF_ENV }}
     needs: [ Scan, Lint, Docs ]
-
-  Scan:
-    uses: AutomationLibrary/actions-workflows/.github/workflows/reusable/terraform/scan.yml@main
-
-  Lint:
-    uses: AutomationLibrary/actions-workflows/.github/workflows/reusable/terraform/lint.yml@main
 
   Docs:
     uses: AutomationLibrary/actions-workflows/.github/workflows/reusable/default/docs.yml@main

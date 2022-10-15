@@ -1,0 +1,73 @@
+name: ECR Build and Push
+
+# see: https://docs.github.com/en/actions/using-workflows/reusing-workflows#overview
+on: 
+  workflow_call:
+    inputs: 
+      IMAGE_NAME:
+        type: string
+        required: true
+        description: Name of the image to build
+      IMAGE_TAG:
+        type: string
+        required: true
+        description: Tag of the image to build
+    # see: https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#onworkflow_callsecrets
+    secrets:
+      AWS_ACCOUNT_ID:
+        required: true
+        description: Account ID of the AWS service account
+      AWS_IAM_USER:
+        required: true
+        description: IAM username of the AWS service account
+      AWS_ACCESS_KEY_ID:
+        required: true
+        description: Access key ID of the AWS service account
+      AWS_SECRET_ACCESS_KEY:
+        required: true
+        description: Secret access key of the AWS service account
+      AWS_DEFAULT_REGION:
+        required: true
+        description: Default region of the AWS service account
+
+jobs:
+  tfdocs:
+    name: ecr image build and push
+    runs-on: ubuntu-latest
+    env:
+      # see:
+        # {{ secrets }} context: https://docs.github.com/en/actions/learn-github-actions/contexts#secrets-context
+        # {{ github }} context: https://docs.github.com/en/actions/learn-github-actions/contexts#github-context
+      AWS_IAM_USER: ${{ secrets.AWS_IAM_USER }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+      IMG_NAME: ${{ inputs.IMAGE_NAME }} 
+      IMG_TAG: ${{ inputs.IMAGE_TAG }}
+
+    steps:
+      - name: job dependencies
+        run: |
+          curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+          unzip awscliv2.zip
+          sudo ./aws/install
+
+      - name: ecr login
+        run: |
+          aws ecr get-login-password \
+            --region $AWS_DEFAULT_REGION |\
+            docker login \
+              --username AWS \
+              --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
+
+      # see: https://github.com/actions/checkout
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: build
+        run: |
+          echo "placeholder"
+
+      - name: push
+        run: |
+          echo "placeholder"
