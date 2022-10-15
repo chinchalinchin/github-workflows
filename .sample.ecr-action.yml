@@ -28,6 +28,10 @@ jobs:
     with:
       IMAGE_NAME: "my-image"
       IMAGE_TAG: "my-tag"
+      ## DOCKERFILE_DIR: Defaults to the repository root. Uncomment to point to different location.
+      # DOCKERFILE_DIR: "path/to/Dockerfile"
+      ## DOCKER_BUILD_CONTEXT: Defaults to the repository. Uncomment to point to different location.
+      # DOCKER_BUILD_CONTEXT: "path/to/context"
     secrets:
       AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
       AWS_IAM_USER: ${{ secrets.AWS_IAM_USER }}

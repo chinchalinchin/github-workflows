@@ -4,14 +4,27 @@ name: ECR Build and Push
 on: 
   workflow_call:
     inputs: 
+      # Non-defaultable inputs, must be passed in from the caller workflow.
+      # see: https://docs.github.com/en/actions/using-workflows/reusing-workflows#passing-inputs-and-secrets-to-a-reusable-workflow
       IMAGE_NAME:
-        type: string
-        required: true
         description: Name of the image to build
-      IMAGE_TAG:
-        type: string
         required: true
+        type: string
+      IMAGE_TAG:
         description: Tag of the image to build
+        required: true
+        type: string
+      # Defaultable inputs
+      DOCKERFILE_DIR:
+        default: "."
+        description: "Location of the Dockerfile to build, relative to the repository root directory."
+        required : true
+        type: string
+      DOCKER_BUILD_CONTEXT:
+        default: "."
+        description: "Location of the Docker build context, relative to the repository root directory."
+        required: true
+        type : string
     # see: https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#onworkflow_callsecrets
     secrets:
       AWS_ACCOUNT_ID:
@@ -31,7 +44,7 @@ on:
         description: Default region of the AWS service account
 
 jobs:
-  tfdocs:
+  ecr_build_and_push:
     name: ecr image build and push
     runs-on: ubuntu-latest
     env:
@@ -66,8 +79,12 @@ jobs:
 
       - name: build
         run: |
-          echo "placeholder"
+          docker build \
+            --file $(pwd)/$DOCKERFILE_DIR \
+            --tag $IMG_NAME:$IMG_TAG \
+            $(pwd)/$DOCKER_BUILD_CONTEXT
+
 
       - name: push
         run: |
-          echo "placeholder"
+          docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com

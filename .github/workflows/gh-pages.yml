@@ -13,8 +13,8 @@ on:
         description: Email of the bot that will push commits back to the gh-pages branch of the repository.
 
 jobs:
-  tfdocs:
-    name: terraform documentation
+  gh_pages:
+    name: documentation
     # NOTE: this job only runs on pull request to prevent pushing back to the repo on every commit.
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
