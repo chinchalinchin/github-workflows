@@ -1,0 +1,54 @@
+name: terraform workflows
+
+on:
+  push:
+    branches:
+      - feature/**
+      - hotfix/**
+
+  # see: https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#pull_request
+  pull_request:
+    branches:
+      - dev
+      - master
+      - main
+
+  workflow_dispatch:
+
+# NOTE: if the GHES version is ever updated to the latest version, instead of passing the secrets 
+#       individually, the `inherit` key word can be used. Until such time, enumerating each secret
+#       for the workflow that uses it is required.
+# 3.5 docs: https://docs.github.com/en/enterprise-server@3.5/actions/using-workflows/reusing-workflows#passing-inputs-and-secrets-to-a-reusable-workflow
+# current docs: https://docs.github.com/en/actions/using-workflows/reusing-workflows#passing-secrets-to-nested-workflows
+jobs:
+  Push:
+    uses: AutomationLibrary/actions-workflows/.github/workflows/ecr-push.yml@main
+    with:
+      IMAGE_NAME: "my-image"
+      IMAGE_TAG: $${{ github.sha }}
+    secrets:
+      AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
+      AWS_IAM_USER: ${{ secrets.AWS_IAM_USER }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+
+  Update:
+    uses: AutomationLibrary/actions-workflows/.github/workflows/lambda-update.yml@main
+    with:
+      FUNCTION_NAME: "my-function"
+      IMAGE_NAME: "my-image"
+      IMAGE_TAG: $${{ github.sha }}
+    secrets:
+      AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
+      AWS_IAM_USER: ${{ secrets.AWS_IAM_USER }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+
+  Docs:
+    uses: AutomationLibrary/actions-workflows/.github/workflows/gh-pages.yml@main
+    secrets:
+      ACTIONS_BOT_USERNAME: ${{ secrets.ACTIONS_BOT_USERNAME }}
+      ACTIONS_BOT_EMAIL: ${{ secrets.ACTIONS_BOT_EMAIL }}
+
