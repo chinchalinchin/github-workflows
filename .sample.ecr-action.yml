@@ -25,7 +25,8 @@ jobs:
     uses: AutomationLibrary/actions-workflows/.github/workflows/ecr-push.yml@main
     with:
       IMAGE_NAME: "my-image"
-      IMAGE_TAG: "my-tag"
+        # If you are using immutable tags, SHA will always be unique.
+      IMAGE_TAG: $${{ github.sha }}
         ## DOCKERFILE_DIR: Defaults to the repository root. Uncomment to point to different location.
       # DOCKERFILE_DIR: "path/to/Dockerfile"
         ## DOCKER_BUILD_CONTEXT: Defaults to the repository. Uncomment to point to different location.
