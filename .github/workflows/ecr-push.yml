@@ -17,7 +17,7 @@ on:
       # Defaultable inputs
       DOCKERFILE_DIR:
         default: "."
-        description: "Location of the Dockerfile to build, relative to the repository root directory."
+        description: "Location of the Dockerfile to build, relative to the repository root directory. Do not include trailing slash."
         required: true
         type: string
       DOCKER_BUILD_CONTEXT:
@@ -84,7 +84,7 @@ jobs:
       - name: build
         run: |
           docker build \
-            --file $(pwd)/$DOCKERFILE_DIR \
+            --file $(pwd)/$DOCKERFILE_DIR/Dockerfile \
             --tag $IMG_NAME:$IMG_TAG \
             $(pwd)/$DOCKER_BUILD_CONTEXT
 
