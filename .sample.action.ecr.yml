@@ -31,7 +31,7 @@ jobs:
       ##         see: https://github.com/actions/runner/issues/409
       ##       in other words, this will tag the image with 'latest' on master,
       ##       and the commit SHA hash on all other branches
-      IMAGE_TAG: ${{ (contains(github.ref_name, 'master') && 'latest') || github.sha }}
+      IMAGE_TAG: ${{ (contains(github.base_ref, 'master') && 'latest') || github.sha }}
       ## DOCKERFILE_DIR: Defaults to the repository root. Uncomment to point to different location.
       # DOCKERFILE_DIR: "path/to/Dockerfile"
       ## DOCKER_BUILD_CONTEXT: Defaults to the repository. Uncomment to point to different location.
