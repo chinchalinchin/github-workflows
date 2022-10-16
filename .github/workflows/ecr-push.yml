@@ -46,7 +46,7 @@ on:
 jobs:
   ecr_build_and_push:
     name: ecr image build and push
-    runs-on: ubuntu-latest
+    runs-on: debian-latest
     env:
       # see:
         # {{ secrets }} context: https://docs.github.com/en/actions/learn-github-actions/contexts#secrets-context
