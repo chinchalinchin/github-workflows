@@ -17,7 +17,7 @@ jobs:
     name: github pages
     # NOTE: this job only runs on pull request to prevent pushing back to the repo on every commit.
     if: github.event_name == 'pull_request'
-    runs-on: debian-latest
+    runs-on: ubuntu-latest
     env:
       USERNAME: ${{ secrets.ACTIONS_BOT_USERNAME }}
       EMAIL: ${{ secrets.ACTIONS_BOT_EMAIL }}

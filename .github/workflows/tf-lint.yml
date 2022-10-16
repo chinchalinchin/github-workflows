@@ -6,7 +6,7 @@ on: workflow_call
 jobs:
   tflint:
     name: terraform lint
-    runs-on: debian-latest
+    runs-on: ubuntu-latest
     env:
       TFLINT_VERSION: v0.41.0
 

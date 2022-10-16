@@ -9,7 +9,7 @@ on:
 jobs:
   Docs:
     name: actions-workflows documentation
-    runs-on: debian-latest
+    runs-on: ubuntu-latest
     env:
       USERNAME: ${{ secrets.ACTIONS_BOT_USERNAME }}
       EMAIL: ${{ secrets.ACTIONS_BOT_EMAIL }}

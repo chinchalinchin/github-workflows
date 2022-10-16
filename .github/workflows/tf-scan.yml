@@ -6,7 +6,7 @@ on: workflow_call
 jobs:        
   checkov:
     name: terraform checkov scan
-    runs-on: debian-latest
+    runs-on: ubuntu-latest
     steps:
       # see: https://github.com/actions/checkout
       - name: checkout
@@ -50,7 +50,7 @@ jobs:
 
   tfsec:
     name: terraform security scan
-    runs-on: debian-latest
+    runs-on: ubuntu-latest
     steps:
       # see: 
         # GITHUB_ENV: https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-environment-variable
