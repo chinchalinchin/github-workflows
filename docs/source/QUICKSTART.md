@@ -30,40 +30,44 @@ The _provider.tf_ must exist because its hash is used a key for the installation
 
 See [Documentation](#documentation) for more information on the docs structure and workflow.
 
-The **Terraform** repository _must_ be structured as modules. The pipeline will attempt to deploy each module separately, one at a time. The pipeline does not have permission to deploy **IAM** resources, so if you 
+The **Terraform** repository _must_ be structured as modules. The pipeline will attempt to deploy each module separately, one at a time. If the project is not structured as modules, then the pipeline deployment will most likely fail.
+
 
 ### State 
 
-By default, the  **Terraform** _provider.tf_ files from the [terraform-module-template](https://github.boozallencsn.com/AutomationLibrary/terraform-module-template) has a block for the **s3** state backend. If you want to develop locally with your own local state, you must explicitly declare this,
+By default, the  **Terraform** _provider.tf_ file from the [terraform-module-template](https://github.boozallencsn.com/AutomationLibrary/terraform-module-template) has a block for the **s3** state backend. If you want to develop locally with your own local state, you must explicitly declare this,
 
 ```shell
 terraform init -backend=false
 ```
 
-Alternatively, you can use the remote **s3** state backend by passing in the state key you want to us. **NOTE**: _NEVER EVER USE THE_ state/terrform.tftstate _ key, as that is where the state for the state bucket and table themselves are maintained,
+Alternatively, you can use the remote **s3** state backend by passing in the state key you want to us. **NOTE**: _NEVER EVER USE THE_ state/terrform.tftstate _ key, as that is where the state for the state bucket and lock table themselves are maintained,
 
 ```shell
 terraform init -backend-config "key=dev/terraform.tfstate"
 ```
+
 ### Variables
 
-If your modules contain variables without default parameters, then in order to test the release of your module in the CI pipeline, you will need to copy the sample file _.sample.tfvars_ into a file named _.tfvars_ in the root of the repository and adjust the variables to your particular project. This file is consumed in the _.github/workflows/tf-release.yml_ during the `plan`, `apply` and `destroy` steps.
+If your modules contain variables without default parameters, then in order to test the release of your module in the pipeline, you will need to set the variable values _.tfvars_ in the root of the repository. This file is consumed in the _Release_ job during the `plan`, `apply` and `destroy` steps.
 
-See [TFVar Files](https://www.terraform.io/language/values/variables#variable-definitions-tfvars-files) for more info. 
+See [Terraform tfvars Files](https://www.terraform.io/language/values/variables#variable-definitions-tfvars-files) for more info. 
 
-**NOTE**: Even if your module does _not_ have variables (unlikely, but possible), you will still need an empty _.tfvars_ file in your repository root for the `release` workflow to succeed.
+**NOTE**: Even if your module does _not_ have variables (unlikely, but possible), you will still need an empty _.tfvars_ file in your repository root for the _Release_ job to succeed.
 
 **NOTE**: Do not include sensitive include in the _.tfvars_ file file. Instead, if you need credentials or keys in your parameters, [add a secret](https://docs.github.com/en/actions/security-guides/encrypted-secrets) to your repository and inject it into an [environment variable](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idstepsenv). See next section for details.
 
 ### TF_ENV
 
-If you **Terraform** module contains variables with secret, sensitive information, you will need to provision a secret within your repository named **TF_ENV** that contains a JSON with key-value pairs for each secret variable,
+If your **Terraform** module contains variables with secret, sensitive information, you will need to provision a secret within your repository named **TF_ENV** that contains a JSON with key-value pairs for each secret variable,
 
 ![](assets/create_secret.png)
 
 ![](assets/define_secret.png)
 
 **NOTE**: It is _very important_ the variable is named **TF_ENV** and is formatted as a key-value JSON, otherwise the secret value will not be ingested into the CI/CD pipeline through Github Actions.
+
+This JSON is parsed in the _Release_ job and the values are injected into the execution environment under the key for that value. See [TF_VAR_ syntax documentation](https://developer.hashicorp.com/terraform/cli/config/environment-variables) for more inforrmation.
 
 ### Documentation
 
