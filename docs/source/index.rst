@@ -9,3 +9,4 @@ Welcome to your-project's documentation!
    QUICKSTART
    CATALOGUE
    CONTRIBUTING
+   APPENDIX
