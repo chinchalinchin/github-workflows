@@ -1,5 +1,5 @@
-Welcome to your-project's documentation!
-========================================
+Welcome to actions-workflows's documentation!
+=============================================
 
 .. toctree::
    :maxdepth: 2
