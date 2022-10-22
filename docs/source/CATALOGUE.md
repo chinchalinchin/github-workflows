@@ -7,6 +7,7 @@ These reusable workflows can be composed in any order that fits your project. Se
 All reusable workflows have the following secrets injected in their execution environment,
 
 | Name | Description | 
+| ---- | ----------- |
 | AWS_ACCOUNT_ID | Account ID of the pipeline AWS service account |
 | AWS_IAM_USER | IAM username of the pipeline AWS service account |
 | AWS_ACCESS_KEY_ID | Access key ID of the pipeline AWS service account |
@@ -22,6 +23,7 @@ This workflow will build a **Docker** image and then push the image up to an **E
 ### Inputs
 
 | Name | Description | Type | Required | 
+| ---- | ----------- | ---- | -------- |
 | IMAGE_NAME | Name of the image to build | string | true |
 | IMAGE_TAG | Tag of the image to build | string | true |
 | DOCKERFILE_DIR |  Location of the Dockerfile to build, relative to the repository root directory. Do not include trailing slash. | string | true |
@@ -40,6 +42,7 @@ This workflow uses a **Python** library, [Sphinx](), to transpile _.md_ markdown
 This job gets additional secrets injected into its environment.
 
 | Name | Description | Type | Required | 
+| ---- | ----------- | ---- | -------- |
 | ACTIONS_BOT_USERNAME| Username of the bot that pushes commits to the "gh-pages" branch | string | true |
 | ACTIONS_BOT_EMAIL | Email of the bot that pushes commits to the "gh-pages" branch | string | true |
 
@@ -52,6 +55,7 @@ This workflow performs an update on existing **Lambda** function using an **ECR*
 ### Inputs
 
 | Name | Description | Type | Required | 
+| ---- | ----------- | ---- | -------- |
 | FUNCTION_NAME | Name of the function to deploy | string | true |
 | IMAGE_NAME | Name of the ECR repo where the function's image is hosted | string | true |
 | IMAGE_TAG | Tag in the ECR to deploy | string | true |
@@ -79,5 +83,6 @@ However, do not add secret information to this file, as it gets committed. Inste
 ### Inputs
 
 | Name | Description | Type | Required | 
+| ---- | ----------- | ---- | -------- |
 | MODULES | Comma separated list of Terraform moduels that will be deployed. Modules will be deployedi n the order in which they are listed. | string | true |
 
