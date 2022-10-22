@@ -100,7 +100,10 @@ rm -rf *
 You will need to add a _.gitignore_ with the following patterns ignored (also included in the _.sample.terraform-gitignore_ file),
 
 ```
+**/.DS_Store
 /docs/build/*
+**/*.env
+!**/*.sample.env
 **/.venv
 **/.terraform
 **/*.tfstate
@@ -112,6 +115,8 @@ You will need to add a _.gitignore_ with the following patterns ignored (also in
 **/*.zip
 **/*.tar
 **/*.gz
+**/*.lock.info
+**/objects.inv
 ```
 
 And then commit it and push it up to the remote,
@@ -121,19 +126,3 @@ git add .
 git commit -m 'initiailize gh-pages branch'
 git push --set-upstream origin gh-pages
 ```
-
-
-## Docs
-### Github Actions
-- [Reusable Workflows](https://docs.github.com/en/actions/using-workflows/reusing-workflows#using-inputs-and-secrets-in-a-reusable-workflow)
-- [Managing Actions on Github Enterprise Servr (GHES)](https://docs.github.com/en/enterprise-server@3.5/admin/github-actions/managing-access-to-actions-from-githubcom/about-using-actions-in-your-enterprise)
-- [Enable Debug Logging](https://docs.github.com/en/actions/monitoring-and-troubleshooting-workflows/enabling-debug-logging)
-- [Booz Allen CSN Github Actions](https://github.boozallencsn.com/actions)
-### Terraform Docs
-- [Configuration File](https://terraform-docs.io/user-guide/configuration/)
-### Terraform Security
-- [Configuration File](https://aquasecurity.github.io/tfsec/v1.27.6/guides/configuration/config/)
-### Sphinx
-- [Sphinx Getting Started](https://www.sphinx-doc.org/en/master/usage/quickstart.html)
-- [Material for Sphinx](https://bashtage.github.io/sphinx-material/)
-  
