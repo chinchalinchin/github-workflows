@@ -1,3 +1,37 @@
 # actions-workflows
 
-This repository contains a set of reusable **GitHub Action** workflows and configuration files for hooking into the **Automation Library**'s _Continuous Integration_. It currently supports **Terraform** workflows only, but in a future release will support **Packer** templates.
+This repository contains a set of reusable **GitHub Action** workflows and configuration files for hooking into the **Automation Library**'s _Continuous Integration_. It currently supports **Terraform** workflows only, but in a future release will support **Packer**  and **Docker** templates.
+
+## Terraform Pipeline
+
+### Stages
+
+The **Terraform** pipeline has four stages, three unique to Terraform and one that applies to all _AutomationLibrary_ repositories. 
+
+- Scan
+- Lint 
+- Docs
+- Release
+
+`Scan`, `Lint` and `Release` are special **Terraform** jobs. `Docs` is a general job.
+
+**Scan**
+
+The `Scan` job will run [tf-sec]() and [checkov]() against the repository's infrastructure-as-code. The pipeline will fail if any vulnerabilities are found.
+
+**Lint**
+
+The `Lint` job will run [tf-lint]() against the repository's infrastructure-as-code. The pipeline will fail if any styling issues are found.
+
+**Dods**
+
+The `Docs` job will run [tf-docs]() to process _.tf_ files into _.md_ files. [Spinx]() is then run to process the _.md_ files into _.html_, which is then pushed to the `gh-pages` branch of your repository. If the documentation fails to build, the pipeline will fail.
+
+**Release**
+
+The `Release` job will run `terraform apply`, `terraform plan` and `terraform destroy` against each **Terraform** module in your project. The pipeline will fail if any step in the process fails.
+
+### Standards and Practices
+
+1. The pipeline uses an **AWS** service account with limited permissions to deploy resources into the _Northern Lights_ account. One important point to keep in mind while developing is the pipeline does _not_ have **IAM** permissions. In other words, the pipeline _cannot_ create roles, policies, users, or perform any modifications to existing **IAM** resources. Due to this restriction, your **Terraform** project must be structured so that all **IAM** resources can either be inputted through variables, pulled from an external data source or otherwise imported. If a module in your project provisions **IAM** resources, it _must_ do so in a conditional way, i.e. if an input variable `iam_permission` is set to `true`. It is recommended to modularize your project in such a way that all conditionally created **IAM** resources are isolated in a single module. The `Release` job can be configured to only deploy certain jobs in your project; if you modularize your **IAM** resources, you can simply skip this module in the `Release` job. See [tf-release in the Catalogue for more information on configuring the Release job](./CATALOGUE.md#tf-release).
+2. Do not commit account IDs, resource IDs, resource ARNs or anything of that nature to your version control. The _Automation Library_ uses [Github Secrets](https://docs.github.com/en/rest/actions/secrets) to deliver sensitive information to the pipeline. See [TF_ENV in Quickstart for more information on injecting secrets in your pipeline](./QUICKSTART.md#tf_env).

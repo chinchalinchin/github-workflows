@@ -7,7 +7,7 @@ on:
       # Non-defaultable inputs, must be passed in from the caller workflow.
       # see: https://docs.github.com/en/actions/using-workflows/reusing-workflows#passing-inputs-and-secrets-to-a-reusable-workflow
       FUNCTION_NAME:
-        description: Name of the image to build
+        description: Name of the function to deploy
         required: true
         type: string
       IMAGE_NAME:

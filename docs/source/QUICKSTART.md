@@ -4,21 +4,33 @@ Depending on the type of package you are developing, you will need to use a diff
 
 ## Terraform
 
-The _.sample.terraform-actions.yml_ can copied into a new _action.yml_ and placed into the _.github/workflows_ directory of your repository to utilize the **AutomationLibrary**'s _Continuous Integration_ **Terraform** workflow template. This file only needs one piece of information altered: You will need to update the names of the modules passed into the _Release_ action through the `input` variable,
+### Template
+
+The _Automation-Library_ has created a **Terraform** project template [found here](https://github.boozallencsn.com/AutomationLibrary/terraform-module-template). This template is pre-configured for our pipeline. You can clone the template and then add your own project's remote,
+
+```shell
+git clone git@github.boozallencsn.com:AutomationLibrary/terraform-module-template.git <your-project-directory>
+cd <your-project-directory>
+git remote remove origin
+git remote add origin <your-project-repository-origin>
+```
+### Github Action
+
+The _.sample.terraform-actions.yml_ in the [actions-workflows repository](https://github.boozallencsn.com/AutomationLibrary/actions-workflows) has been copied into a new _action.yml_ and placed into the _.github/workflows_ directory of the `terraform-module-template` repository, in order to hook into the **AutomationLibrary**'s _Continuous Integration_ **Terraform** job template. This [job](https://docs.github.com/en/actions/using-jobs/using-jobs-in-a-workflow) template uses several reusable workflows; For more information on the individual [Automation-Library workflows](https://docs.github.com/en/actions/using-workflows/about-workflows), see [Catalogue](./CATALOGUE.md). In most cases, the specifics of the _.sample.terraform-actions.yml_ can be ignored; only one piece of information needs altered: You will need to update the names of the modules passed into the _Release_ reusable workflow through its `input` variable,
 
 ![](./assets/module_input.png)
 
-These names _must_ match the names assigned to the modules in **Terraform**; the pipeline uses this variable to determine which modules are within a given project.
-
-**NOTE**: DO NOT USE THE _action.yml_ IN THE _.github/workflows/_ DIRECTORY; USE _.sample.terraform-actions.yaml_ IN THE REPOSITORY ROOT! The one found in the _.github/workflows_ directory of this repository is used to build the docs for this repo.
+These names _must_ match the names assigned to the modules in **Terraform**; the pipeline uses this variable to determine which modules are within a given project when it does a test deployment in its final stage.
 
 ### Layout
 
-The root directory should, at minimum, contain a _/docs/_ directory, a _README.md_, a _.tfvars_ file and a _provider.tf_ file. The _provider.tf_ must exist because its hash is used a key for the installation and plugin caches in the pipeline. See [Documentation](#documentation) for more information on the docs structure and workflow.
+The root directory should, at minimum, contain a _/docs/_ directory, a _README.md_, a _.tfvars_ file and a _provider.tf_ file. The `terraform-module-template` repository has these files set up for you. 
 
-Refer to the [terraform-module-template](https://github.boozallencsn.com/AutomationLibrary/terraform-module-template) for a pre-configured project setup according to our best practices guidelines.
+The _provider.tf_ must exist because its hash is used a key for the installation and plugin caches in the pipeline. 
 
-Moreover, the **Terraform** repository _must_ be structured as modules. The pipeline will attempt to deploy each module separately, one at a time.
+See [Documentation](#documentation) for more information on the docs structure and workflow.
+
+The **Terraform** repository _must_ be structured as modules. The pipeline will attempt to deploy each module separately, one at a time. The pipeline does not have permission to deploy **IAM** resources, so if you 
 
 ### State 
 

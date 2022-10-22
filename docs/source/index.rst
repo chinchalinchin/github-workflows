@@ -7,4 +7,5 @@ Welcome to your-project's documentation!
 
    OVERVIEW
    QUICKSTART
+   CATALOGUE
    CONTRIBUTING
