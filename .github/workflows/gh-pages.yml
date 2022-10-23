@@ -7,11 +7,9 @@ on:
     secrets:
       ACTIONS_BOT_USERNAME:
         required: true
-        type: string
         description: Username of the bot that will push commits back to the gh-pages branch of the repository.
       ACTIONS_BOT_EMAIL:
         required: true
-        type: string
         description: Email of the bot that will push commits back to the gh-pages branch of the repository.
 
 jobs:
