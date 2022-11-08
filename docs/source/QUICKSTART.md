@@ -145,3 +145,27 @@ git add .
 git commit -m 'initiailize gh-pages branch'
 git push --set-upstream origin gh-pages
 ```
+
+## DevPortal Integration
+
+The [Developer Portal](https://developerportal.bah.com) is a company wide registry for reusable projects and code scaffolding/templates. After your project has passed the _AutomationLibrary_ continuous integration pipeline, your repository is eligible for promotion into the portal. To add your repository to the developer portal, you must do three things:
+
+1. Add a _catalog-info.yml_ to the root of your repository.
+2. Add your repository to the _AutomationLibrary's_ fork of the DeveloperPortal helm chart.
+3. Create a pull request from the _AutomationLibrary_ fork into the `develop` branch of the upstream DeveloperPortal repository.
+
+### catalog-info
+
+This file contains metadata about your repository that is ingested into the developer portal to populate the web UI. 
+
+[A sample file for the aws-synthetics-heartbeat-canary repo can be found here](https://github.boozallencsn.com/AutomationLibrary/aws-synthetics-heartbeat-canary/blob/master/catalog-info.yml).
+
+See [developer portal documentation](https://github.boozallencsn.com/solutionscenter-sandbox/developer-portal-user-guide/blob/develop/docs/how-to/solution-intake/defining-entity.md) for more information on configuring the _catalog-info.yml_.
+
+### Helm Chart
+
+Clone the [AutomationLibrary/charts](https://github.boozallencsn.com/AutomationLibrary/charts) repository. Add links to your repository in the [/charts/backstage/config/envs/dev/app-config.yml](https://github.boozallencsn.com/AutomationLibrary/charts/blob/develop/charts/backstage/config/envs/dev/app-config.yaml#L242) and [/charts/backstage/config/envs/prod/app-config.yml](https://github.boozallencsn.com/AutomationLibrary/charts/blob/develop/charts/backstage/config/envs/prod/app-config.yaml#L242), underneath `catalogue.locations`.
+
+### Pull Request
+
+Create a pull request into the upstream `develop` branch of [solutionscenter-sandbox/charts](https://github.boozallencsn.com/solutionscenter-sandbox/charts) repository. Inform someone on the team that a pull request has been submitted; the best way to do this is to post a message in the _software-studio_ **Slack** channel.
