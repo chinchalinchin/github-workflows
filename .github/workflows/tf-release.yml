@@ -119,30 +119,30 @@ jobs:
               -input=false 
           done
             
-      - name: apply
-        if: github.event_name == 'pull_request'
-        run: |
-          IFS=', ' read -r -a M_ARRAY <<< "$MODULES"
-          for element in "${M_ARRAY[@]}"
-          do
-            echo "Deploying $element module"
-            terraform apply \
-              -var-file .tfvars \
-              -input=false \
-              -target="module.${element}" \
-              -auto-approve 
-          done
+      # - name: apply
+      #   if: github.event_name == 'pull_request'
+      #   run: |
+      #     IFS=', ' read -r -a M_ARRAY <<< "$MODULES"
+      #     for element in "${M_ARRAY[@]}"
+      #     do
+      #       echo "Deploying $element module"
+      #       terraform apply \
+      #         -var-file .tfvars \
+      #         -input=false \
+      #         -target="module.${element}" \
+      #         -auto-approve 
+      #     done
       
-      - name: destroy
-        if: github.event_name == 'pull_request'
-        run: |
-          IFS=', ' read -r -a M_ARRAY <<< "$MODULES"
-          for element in "${M_ARRAY[@]}"
-          do
-            echo "Destroying $element module"
-            terraform destroy \
-              -var-file .tfvars \
-              -input=false \
-              -target="module.${element}" \
-              -auto-approve
-          done
+      # - name: destroy
+      #   if: github.event_name == 'pull_request'
+      #   run: |
+      #     IFS=', ' read -r -a M_ARRAY <<< "$MODULES"
+      #     for element in "${M_ARRAY[@]}"
+      #     do
+      #       echo "Destroying $element module"
+      #       terraform destroy \
+      #         -var-file .tfvars \
+      #         -input=false \
+      #         -target="module.${element}" \
+      #         -auto-approve
+      #     done
