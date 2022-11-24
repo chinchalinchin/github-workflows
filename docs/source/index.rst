@@ -7,6 +7,9 @@ Welcome to actions-workflows's documentation!
 
    OVERVIEW
    QUICKSTART
+   TERRAFORM
+   PACKER
+   DOCKER
    CATALOGUE
    CONTRIBUTING
    APPENDIX
