@@ -1,4 +1,4 @@
-# Terraform
+# Terraform Template
 
 The sample action file found [here](https://github.boozallencsn.com/AutomationLibrary/actions-workflows/blob/main/.sample.action.terraform.yml) can be added to the _.github/workflows/_ subdirectory in your repository's root to hook into the [Github Action](https://docs.github.com/en/actions) CI pipeline. 
 

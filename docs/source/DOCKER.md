@@ -1,3 +1,3 @@
-# Packer Template
+# Docker Template
 
 TODO
