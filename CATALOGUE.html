@@ -106,7 +106,7 @@
       </div>
       <div class="md-flex__cell md-flex__cell--stretch">
         <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
-          <span class="md-header-nav__topic">Automation Library</span>
+          <span class="md-header-nav__topic">Reusable Github Actions</span>
           <span class="md-header-nav__topic"> Action Catalogue </span>
         </div>
       </div>
@@ -198,7 +198,7 @@
       
     </a>
     <a href="index.html"
-       title="Reusable Github Action Workflows 1.0.0 documentation">Automation Library</a>
+       title="Reusable Github Action Workflows 1.0.0 documentation">Reusable Github Actions</a>
   </label>
     <div class="md-nav__source">
       <a href="https://github.com/chinchalinchin/github-workflows" title="Go to repository" class="md-source" data-md-source="github">
@@ -309,7 +309,7 @@
 </section>
 <section id="ecr-push">
 <h2 id="ecr-push">ecr-push<a class="headerlink" href="#ecr-push" title="Permalink to this heading">¶</a></h2>
-<p><a class="reference external" href="https://github.boozallencsn.com/AutomationLibrary/actions-workflows/blob/main/.github/workflows/ecr-push.yml">Source</a></p>
+<p><a class="reference external" href="https://github.com/chinchalinchin/github-workflows/blob/main/.github/workflows/ecr-push.yml">Source</a></p>
 <p>This workflow will build a <strong>Docker</strong> image and then push the image up to an <strong>ECR</strong> in the <em>Northern Lights</em> account.</p>
 <section id="inputs">
 <h3 id="inputs">Inputs<a class="headerlink" href="#inputs" title="Permalink to this heading">¶</a></h3>
@@ -348,18 +348,19 @@
 </section>
 <section id="gh-pages">
 <h2 id="gh-pages">gh-pages<a class="headerlink" href="#gh-pages" title="Permalink to this heading">¶</a></h2>
-<p><a class="reference external" href="https://github.boozallencsn.com/AutomationLibrary/actions-workflows/blob/main/.github/workflows/gh-pages.yml">Source</a></p>
+<p><a class="reference external" href="https://github.com/chinchalinchin/github-workflows/blob/main/.github/workflows/gh-pages.yml">Source</a></p>
 <p>This workflow will compile documentation into the <code class="docutils literal notranslate"><span class="pre">gh-pages</span></code> branch of the repository. Based on the files it finds in your repository, it will attempt to construct the documentation through different methods. For example, if your repository has a <em>.terraform-docs.yml</em>, it will use <code class="docutils literal notranslate"><span class="pre">tf-docs</span></code> to process the <em>.tf</em> files into <em>.md</em> files.</p>
 <p>This workflow uses a <strong>Python</strong> library, <span class="xref myst">Sphinx</span>, to transpile <em>.md</em> markdown files into web-hostable <em>.html</em> files. The result of this transpilation is pushed to the <code class="docutils literal notranslate"><span class="pre">gh-pages</span></code> and hosted using the <a class="reference external" href="https://pages.github.com">Github Pages functionality</a>.</p>
 <section id="id1">
 <h3 id="id1">Secrets<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h3>
-<p>This job gets additional secrets injected into its environment.</p>
+<p>This job gets additional, optional secrets injected into its environment.</p>
 <table>
 <thead>
 <tr class="row-odd"><th class="head"><p>Name</p></th>
 <th class="head"><p>Description</p></th>
 <th class="head"><p>Type</p></th>
 <th class="head"><p>Required</p></th>
+<th class="head"><p>Default</p></th>
 </tr>
 </thead>
 <tbody>
@@ -367,11 +368,13 @@
 <td><p>Username of the bot that pushes commits to the “gh-pages” branch</p></td>
 <td><p>string</p></td>
 <td><p>true</p></td>
+<td><p>github-slave-bot</p></td>
 </tr>
 <tr class="row-odd"><td><p>ACTIONS_BOT_EMAIL</p></td>
 <td><p>Email of the bot that pushes commits to the “gh-pages” branch</p></td>
 <td><p>string</p></td>
 <td><p>true</p></td>
+<td><p>slave@github.com</p></td>
 </tr>
 </tbody>
 </table>
@@ -379,7 +382,7 @@
 </section>
 <section id="lambda-update">
 <h2 id="lambda-update">lambda-update<a class="headerlink" href="#lambda-update" title="Permalink to this heading">¶</a></h2>
-<p><a class="reference external" href="https://github.boozallencsn.com/AutomationLibrary/actions-workflows/blob/main/.github/workflows/lambda-update.yml">Source</a></p>
+<p><a class="reference external" href="https://github.com/chinchalinchin/github-workflows/blob/main/.github/workflows/lambda-update.yml">Source</a></p>
 <p>This workflow performs an update on existing <strong>Lambda</strong> function using an <strong>ECR</strong> image and tag.</p>
 <section id="id2">
 <h3 id="id2">Inputs<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h3>
@@ -413,17 +416,17 @@
 </section>
 <section id="tf-lint">
 <h2 id="tf-lint">tf-lint<a class="headerlink" href="#tf-lint" title="Permalink to this heading">¶</a></h2>
-<p><a class="reference external" href="https://github.boozallencsn.com/AutomationLibrary/actions-workflows/blob/main/.github/workflows/tf-lint.yml">Source</a></p>
+<p><a class="reference external" href="https://github.com/chinchalinchin/github-workflows/blob/main/.github/workflows/tf-lint.yml">Source</a></p>
 <p>This workflow runs <a class="reference external" href="https://github.com/terraform-linters/tflint">tf-lint</a> from the repository’s root directory. It requires a <em>.tflint.hcl</em> file to be located in the root directory to configure its execution. See <a class="reference external" href="https://github.com/terraform-linters/tflint/blob/master/docs/user-guide/config.md">documentation</a> for more information on setting up this file.</p>
 </section>
 <section id="tf-scan">
 <h2 id="tf-scan">tf-scan<a class="headerlink" href="#tf-scan" title="Permalink to this heading">¶</a></h2>
-<p><a class="reference external" href="https://github.boozallencsn.com/AutomationLibrary/actions-workflows/blob/main/.github/workflows/tf-scan.yml">Source</a></p>
+<p><a class="reference external" href="https://github.com/chinchalinchin/github-workflows/blob/main/.github/workflows/tf-scan.yml">Source</a></p>
 <p>This workflow runs <a class="reference external" href="https://github.com/aquasecurity/tfsec">tf-sec</a> and <span class="xref myst">checkov</span> from the repository’s root directory. It requires a <em>.terraform-security.yml</em> located in the root directory to configure its execution. See <a class="reference external" href="https://aquasecurity.github.io/tfsec/v1.28.0/guides/configuration/config/">documentation</a> for more information on setting up this file.</p>
 </section>
 <section id="tf-release">
 <h2 id="tf-release">tf-release<a class="headerlink" href="#tf-release" title="Permalink to this heading">¶</a></h2>
-<p><a class="reference external" href="https://github.boozallencsn.com/AutomationLibrary/actions-workflows/blob/main/.github/workflows/tf-release.yml">Source</a></p>
+<p><a class="reference external" href="https://github.com/chinchalinchin/github-workflows/blob/main/.github/workflows/tf-release.yml">Source</a></p>
 <p>This workflow runs <code class="docutils literal notranslate"><span class="pre">terraform</span> <span class="pre">plan</span></code>, <code class="docutils literal notranslate"><span class="pre">terraform</span> <span class="pre">apply</span></code> and <code class="docutils literal notranslate"><span class="pre">terraform</span> <span class="pre">destroy</span></code> in a sequence of steps. Each step is dependent on the success of the previous step. Each step ingests the <em>.tfvars</em> file found in the repository root directory. See <a class="reference external" href="https://developer.hashicorp.com/terraform/language/values/variables#variable-definitions-tfvars-files">documentation</a> for more information on setting up this file.</p>
 <p>However, do not add secret information to this file, as it gets committed. Instead, use a <a class="reference external" href="https://docs.github.com/en/rest/actions/secrets">Github Secret</a>. See <span class="xref myst">TF_ENV</span> for more information and an example of setting up a new secret.</p>
 <section id="id3">

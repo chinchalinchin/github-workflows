@@ -16,7 +16,7 @@ All reusable workflows have the following secrets injected in their execution en
 
 ## ecr-push
 
-[Source](https://github.boozallencsn.com/AutomationLibrary/actions-workflows/blob/main/.github/workflows/ecr-push.yml)
+[Source](https://github.com/chinchalinchin/github-workflows/blob/main/.github/workflows/ecr-push.yml)
 
 This workflow will build a **Docker** image and then push the image up to an **ECR** in the _Northern Lights_ account.
 
@@ -31,7 +31,7 @@ This workflow will build a **Docker** image and then push the image up to an **E
  
 ## gh-pages
 
-[Source](https://github.boozallencsn.com/AutomationLibrary/actions-workflows/blob/main/.github/workflows/gh-pages.yml)
+[Source](https://github.com/chinchalinchin/github-workflows/blob/main/.github/workflows/gh-pages.yml)
 
 This workflow will compile documentation into the `gh-pages` branch of the repository. Based on the files it finds in your repository, it will attempt to construct the documentation through different methods. For example, if your repository has a _.terraform-docs.yml_, it will use `tf-docs` to process the _.tf_ files into _.md_ files.
 
@@ -39,16 +39,16 @@ This workflow uses a **Python** library, [Sphinx](), to transpile _.md_ markdown
 
 ### Secrets
 
-This job gets additional secrets injected into its environment.
+This job gets additional, optional secrets injected into its environment.
 
-| Name | Description | Type | Required | 
-| ---- | ----------- | ---- | -------- |
-| ACTIONS_BOT_USERNAME| Username of the bot that pushes commits to the "gh-pages" branch | string | true |
-| ACTIONS_BOT_EMAIL | Email of the bot that pushes commits to the "gh-pages" branch | string | true |
+| Name | Description | Type | Required | Default | 
+| ---- | ----------- | ---- | -------- | ------- |
+| ACTIONS_BOT_USERNAME| Username of the bot that pushes commits to the "gh-pages" branch | string | true | github-slave-bot |
+| ACTIONS_BOT_EMAIL | Email of the bot that pushes commits to the "gh-pages" branch | string | true | slave@github.com |
 
 ## lambda-update
 
-[Source](https://github.boozallencsn.com/AutomationLibrary/actions-workflows/blob/main/.github/workflows/lambda-update.yml)
+[Source](https://github.com/chinchalinchin/github-workflows/blob/main/.github/workflows/lambda-update.yml)
 
 This workflow performs an update on existing **Lambda** function using an **ECR** image and tag. 
 
@@ -62,19 +62,19 @@ This workflow performs an update on existing **Lambda** function using an **ECR*
 
 ## tf-lint
 
-[Source](https://github.boozallencsn.com/AutomationLibrary/actions-workflows/blob/main/.github/workflows/tf-lint.yml)
+[Source](https://github.com/chinchalinchin/github-workflows/blob/main/.github/workflows/tf-lint.yml)
 
 This workflow runs [tf-lint](https://github.com/terraform-linters/tflint) from the repository's root directory. It requires a _.tflint.hcl_ file to be located in the root directory to configure its execution. See [documentation](https://github.com/terraform-linters/tflint/blob/master/docs/user-guide/config.md) for more information on setting up this file.
 
 ## tf-scan
 
-[Source](https://github.boozallencsn.com/AutomationLibrary/actions-workflows/blob/main/.github/workflows/tf-scan.yml)
+[Source](https://github.com/chinchalinchin/github-workflows/blob/main/.github/workflows/tf-scan.yml)
 
 This workflow runs [tf-sec](https://github.com/aquasecurity/tfsec) and [checkov]() from the repository's root directory. It requires a _.terraform-security.yml_ located in the root directory to configure its execution. See [documentation](https://aquasecurity.github.io/tfsec/v1.28.0/guides/configuration/config/) for more information on setting up this file.
 
 ## tf-release
 
-[Source](https://github.boozallencsn.com/AutomationLibrary/actions-workflows/blob/main/.github/workflows/tf-release.yml)
+[Source](https://github.com/chinchalinchin/github-workflows/blob/main/.github/workflows/tf-release.yml)
 
 This workflow runs `terraform plan`, `terraform apply` and `terraform destroy` in a sequence of steps. Each step is dependent on the success of the previous step. Each step ingests the _.tfvars_ file found in the repository root directory. See [documentation](https://developer.hashicorp.com/terraform/language/values/variables#variable-definitions-tfvars-files) for more information on setting up this file.
 
