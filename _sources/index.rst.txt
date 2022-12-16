@@ -7,4 +7,3 @@ Welcome to github-workflows's documentation!
 
    OVERVIEW
    CATALOGUE
-   CONTRIBUTING
