@@ -17,7 +17,7 @@ on:
 jobs:
   Release:
     if: ${{ github.event_name == 'pull_request' }}
-    uses: AutomationLibrary/actions-workflows/.github/workflows/tf-release.yml@main
+    uses: chinchalinchin/github-workflows/.github/workflows/tf-release.yml@main
     with:
       MODULES: "vpc,cluster,peristence"
     secrets:
@@ -31,16 +31,12 @@ jobs:
 
   Scan:
     if: ${{ github.event_name == 'push' }}
-    uses: AutomationLibrary/actions-workflows/.github/workflows/tf-scan.yml@main
+    uses: chinchalinchin/github-workflows/.github/workflows/tf-scan.yml@main
 
   Lint:
     if: ${{ github.event_name == 'push' }}
-    uses: AutomationLibrary/actions-workflows/.github/workflows/tf-lint.yml@main
+    uses: chinchalinchin/github-workflows/.github/workflows/tf-lint.yml@main
 
   Docs:
     if: ${{ github.event_name == 'pull_request' }}
-    uses: AutomationLibrary/actions-workflows/.github/workflows/gh-pages.yml@main
-    secrets:
-      ACTIONS_BOT_USERNAME: ${{ secrets.ACTIONS_BOT_USERNAME }}
-      ACTIONS_BOT_EMAIL: ${{ secrets.ACTIONS_BOT_EMAIL }}
-
+    uses: chinchalinchin/github-workflows/.github/workflows/gh-pages.yml@main

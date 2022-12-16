@@ -16,7 +16,7 @@ on:
 
 jobs:
   Push:
-    uses: chinchalinchin/github-workflows/.github/workflows//ecr-push.yml@main
+    uses: chinchalinchin/github-workflows/.github/workflows/ecr-push.yml@main
     with:
       IMAGE_NAME: "my-image"
       IMAGE_TAG: $${{ github.sha }}
@@ -42,7 +42,4 @@ jobs:
 
   Docs:
     uses: chinchalinchin/github-workflows/.github/workflows/gh-pages.yml@main
-    secrets:
-      ACTIONS_BOT_USERNAME: ${{ secrets.ACTIONS_BOT_USERNAME }}
-      ACTIONS_BOT_EMAIL: ${{ secrets.ACTIONS_BOT_EMAIL }}
 

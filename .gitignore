@@ -15,4 +15,3 @@
 **/*.tar
 **/*.gz
 **/*.lock.info
-**/objects.inv

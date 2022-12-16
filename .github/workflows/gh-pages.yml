@@ -6,11 +6,13 @@ on:
     # see: https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#onworkflow_callsecrets
     secrets:
       ACTIONS_BOT_USERNAME:
-        required: true
+        required: false
         description: Username of the bot that will push commits back to the gh-pages branch of the repository.
+        default: github-slave-bot
       ACTIONS_BOT_EMAIL:
-        required: true
+        required: false
         description: Email of the bot that will push commits back to the gh-pages branch of the repository.
+        default: slave@github.com
 
 jobs:
   gh_pages:

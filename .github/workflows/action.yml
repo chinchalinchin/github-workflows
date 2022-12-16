@@ -8,11 +8,11 @@ on:
 
 jobs:
   Docs:
-    name: actions-workflows documentation
+    name: sphinx documentation
     runs-on: ubuntu-latest
     env:
-      USERNAME: ${{ secrets.ACTIONS_BOT_USERNAME }}
-      EMAIL: ${{ secrets.ACTIONS_BOT_EMAIL }}
+      USERNAME: github-slave-bot
+      EMAIL: slave@github
 
     steps:
       # see: https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-environment-variable
