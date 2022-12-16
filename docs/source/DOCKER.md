@@ -1,3 +1,0 @@
-# Docker Template
-
-TODO

@@ -6,7 +6,6 @@ on:
       - feature/**
       - hotfix/**
 
-  # see: https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#pull_request
   pull_request:
     branches:
       - dev
@@ -15,18 +14,11 @@ on:
 
   workflow_dispatch:
 
-# NOTE: if the GHES version is ever updated to the latest version, instead of passing the secrets 
-#       individually, the `inherit` key word can be used. Until such time, enumerating each secret
-#       for the workflow that uses it is required.
-# 3.5 docs: https://docs.github.com/en/enterprise-server@3.5/actions/using-workflows/reusing-workflows#passing-inputs-and-secrets-to-a-reusable-workflow
-# current docs: https://docs.github.com/en/actions/using-workflows/reusing-workflows#passing-secrets-to-nested-workflows
 jobs:
   Release:
     if: ${{ github.event_name == 'pull_request' }}
     uses: AutomationLibrary/actions-workflows/.github/workflows/tf-release.yml@main
     with:
-      # NOTE: comma-separated list of module names that are being deployed!
-      #       modules will be deployed in the order they are listed.
       MODULES: "vpc,cluster,peristence"
     secrets:
       AWS_IAM_USER: ${{ secrets.AWS_IAM_USER }}
