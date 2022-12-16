@@ -60,14 +60,14 @@ html_theme = 'sphinx_material'
 html_theme_options = {
 
     # Set the name of the project to appear in the navigation.
-    'nav_title': 'Automation Library',
+    'nav_title': 'Reusable Github Actions',
 
     # Set you GA account ID to enable tracking
     'google_analytics_account': 'UA-XXXXX',
 
     # Specify a base_url used to generate sitemap.xml. If not
     # specified, then no sitemap will be built.
-    'base_url': '',
+    'base_url': 'https://chinchalinchin.github.io/github-workflows/',
 
     # Set the color and the accent color
     'color_primary': 'blue',
