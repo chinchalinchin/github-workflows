@@ -1,5 +1,11 @@
+# Workflow to generate website resources using Sphinx Material and commit them to the gh-pages branch of a repository. 
+# Requirements:
+#   1.The gh-pages branch must be initialized prior to using this workflow. 
+#   2. The Sphinx project must be nested in a /docs/ directory. 
+# This workflow can also be configured to work with tfdocs by passing in an input variable. If using this feature, there is an additional requirement:
+#   3. your repository must contain a .terraform-docs.yml configuration file in the project's root directory.
+
 name: Sphinx Material GitHub Pages Reusable Action
-description: Workflow to generate website resources using Sphinx Material and commit them to the gh-pages branch of a repository. The gh-pages branch must be initialized prior to using this workflow. The Sphinx project must be nested in a /docs/ directory. This workflow can also be configured to work with tfdocs by passing in an input variable. If using this feature, your repository must contain a .terraform-docs.yml configuration file in the project root directory to succeed.
 
 # see: https://docs.github.com/en/actions/using-workflows/reusing-workflows#overview
 on: 
