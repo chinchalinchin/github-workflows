@@ -16,14 +16,17 @@ on:
         required: false
         description: Flag to run tf-docs before sphinx to generate markdown. Note, it is assumed the .terraform-docs.yml is configured to output markdown into the Sphinx /source/ directory and that no further configuration is required.
         default: false
+        type: string
       ACTIONS_BOT_USERNAME:
         required: false
         description: Username of the bot that will push commits back to the gh-pages branch of the repository.
         default: github-slave-bot
+        type: string
       ACTIONS_BOT_EMAIL:
         required: false
         description: Email of the bot that will push commits back to the gh-pages branch of the repository.
         default: slave@github.com
+        type: string
 
 jobs:
   gh_pages:
