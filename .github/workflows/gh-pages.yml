@@ -29,7 +29,8 @@ on:
         type: string
 
 jobs:
-  gh_pages:
+  # TODO: allow user to specify which theme and version to use.
+  sphinx_gh_pages:
     name: github pages
     runs-on: ubuntu-latest
     env:
@@ -40,6 +41,7 @@ jobs:
       SPHINX_VERSION: 4.3.0
       MATERIAL_VERSION: 0.0.35
       MYST_VERSION: 0.15.2
+      GROUNDWORK_VERSION: 1.1.1
 
     steps:
       # see: https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-environment-variable
