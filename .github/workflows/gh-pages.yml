@@ -90,7 +90,8 @@ jobs:
           source .venv/bin/activate
           pip3 install sphinx==${SPHINX_VERSION} \
                         sphinx-material==${MATERIAL_VERSION} \
-                        myst-parser==${MYST_VERSION}
+                        myst-parser==${MYST_VERSION} \
+                        groundwork-sphinx-theme==${GROUNDWORK_VERSION}
 
       - name: job dependencies
         if: steps.cache_tfdocs.outputs.cache-hit != 'true' && ${{ inputs.TFDOCS }} == 'true'
