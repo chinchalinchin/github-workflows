@@ -67,31 +67,31 @@ jobs:
 
       # see: https://github.com/actions/cache
       - name: tfdocs cache
-        if: ${TFDOCS} == 'true'
+        if: ${{ inputs.TFDOCS }} == 'true'
         id: cache_tfdocs
         uses: actions/cache@v3
         with:
           path: bin/terraform-docs
-          key: ${{ github.repository }}-${TFDOCS_VERSION}-tfdocs
+          key: ${{ github.repository }}-${{ env.TFDOCS_VERSION }}-tfdocs
 
       - name: sphinx cache
         id: cache_sphinx
         uses: actions/cache@v3
         with:
           path: .venv
-          key: ${{ github.repository }}-${SPHINX_VERSION}-sphinx-venv
+          key: ${{ github.repository }}-${{ env.SPHINX_VERSION} }-sphinx-venv
 
       - name: doc dependencies
         if: steps.cache_sphinx.outputs.cache-hit != 'true'
         run: |
           python3 -m venv .venv
           source .venv/bin/activate
-          pip3 install sphinx==$SPHINX_VERSION \
-                        sphinx-material==$MATERIAL_VERSION \
-                        myst-parser==$MYST_VERSION
+          pip3 install sphinx==${SPHINX_VERSION} \
+                        sphinx-material==${MATERIAL_VERSION} \
+                        myst-parser==${MYST_VERSION}
 
       - name: job dependencies
-        if: steps.cache_tfdocs.outputs.cache-hit != 'true' && ${TFDOCS} == 'true'
+        if: steps.cache_tfdocs.outputs.cache-hit != 'true' && ${{ inputs.TFDOCS }} == 'true'
         run: |
           curl -sSLo ./terraform-docs.tar.gz https://terraform-docs.io/dl/v${TFDOCS_VERSION}/terraform-docs-v${TFDOCS_VERSION}-$(uname)-amd64.tar.gz
           tar -xzf terraform-docs.tar.gz
@@ -103,7 +103,7 @@ jobs:
 
       # see: https://terraform-docs.io/user-guide/configuration/
       - name: build docs
-        if: ${TFDOCS} == 'true'
+        if: ${{ inputs.TFDOCS }} == 'true'
         run: |
           if [ -f ".terraform-docs.yml" ]
           then
