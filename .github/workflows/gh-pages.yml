@@ -67,7 +67,7 @@ jobs:
 
       # see: https://github.com/actions/cache
       - name: tfdocs cache
-        if: $TFDOCS == 'true'
+        if: ${TFDOCS} == 'true'
         id: cache_tfdocs
         uses: actions/cache@v3
         with:
@@ -103,7 +103,7 @@ jobs:
 
       # see: https://terraform-docs.io/user-guide/configuration/
       - name: build docs
-        if: $TFDOCS == 'true'
+        if: ${TFDOCS} == 'true'
         run: |
           if [ -f ".terraform-docs.yml" ]
           then
