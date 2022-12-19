@@ -80,14 +80,14 @@ jobs:
         id: cache_sphinx
         uses: actions/cache@v3
         with:
-          path: .venv
-          key: ${{ github.repository }}-${{ env.SPHINX_VERSION }}-sphinx-venv
+          path: ~/.venv
+          key: ${{ github.repository }}-${{ env.SPHINX_VERSION }}-sphinx-venv-invalidate
 
       - name: doc dependencies
         if: steps.cache_sphinx.outputs.cache-hit != 'true'
         run: |
-          python3 -m venv .venv
-          source .venv/bin/activate
+          python3 -m venv ~/.venv
+          source ~/.venv/bin/activate
           pip3 install sphinx==${SPHINX_VERSION} \
                         sphinx-material==${MATERIAL_VERSION} \
                         myst-parser==${MYST_VERSION} \
@@ -116,7 +116,7 @@ jobs:
       # see: https://www.sphinx-doc.org/en/master/
       - name: build html
         run: |
-          source .venv/bin/activate
+          source ~/.venv/bin/activate
           cd docs
           make html
           cd ..
