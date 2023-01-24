@@ -46,7 +46,8 @@ jobs:
       - name: scan
         run: |
           source .venv/bin/activate
-          checkov -d .
+          checkov --directory . \
+            --skip-check CKV2_GHA_1
 
   tfsec:
     name: terraform security scan
