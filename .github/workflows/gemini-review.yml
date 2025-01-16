@@ -1,0 +1,58 @@
+name: Gemini Code Review
+
+on: 
+  workflow_call:
+    # Non-defaultable inputs, must be passed in from the caller workflow.
+    # see: https://docs.github.com/en/actions/using-workflows/reusing-workflows#passing-inputs-and-secrets-to-a-reusable-workflow  
+    inputs: 
+      VERSION:
+        type: string
+        description: 'Version of the elara package to install'
+        required: true
+      GEMINI_MODEL:
+        type: string
+        description: 'Model of Gemini to use'
+        required: true
+      GEMINI_OUTPUT_TOKENS:
+        type: number
+        description: 'Maximum number of tokens in the response'
+        required: false
+        default: '3000'
+    # see: https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#onworkflow_callsecrets
+    secrets:
+      GEMINI_KEY:
+        description: 'API key for the Gemini service'
+        required: true
+      GITHUB_TOKEN:
+        description: 'GitHub Token for commenting on pull requests'
+        required: true
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+      with:
+        repository: ${{ github.event.pull_request.head.repo.full_name }}
+        ref: ${{ github.event.pull_request.head.ref }}
+        fetch-depth: 1
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Install elara from PyPI
+      run: |
+        python -m pip install --upgrade pip
+        pip install elara==${{ inputs.VERSION }}
+
+    - name: Run Code Review with elara (Placeholder)
+      run: |
+        elara review \
+          --branch ${{ inputs.BRANCH }} \
+          --pr ${{ github.event.pull_request.number }}
+      env:
+        GEMINI_KEY: $${ secrets. }
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
