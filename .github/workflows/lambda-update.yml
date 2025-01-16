@@ -3,7 +3,7 @@ name: Lambda update
 # see: https://docs.github.com/en/actions/using-workflows/reusing-workflows#overview
 on: 
   workflow_call:
-    inputs: 
+    inputinputss: 
       # Non-defaultable inputs, must be passed in from the caller workflow.
       # see: https://docs.github.com/en/actions/using-workflows/reusing-workflows#passing-inputs-and-secrets-to-a-reusable-workflow
       FUNCTION_NAME:

@@ -1,4 +1,4 @@
-name: Gemini Code Review
+name: Valis Code Review
 
 on: 
   workflow_call:
@@ -51,8 +51,13 @@ jobs:
     - name: Run Code Review with elara (Placeholder)
       run: |
         elara review \
-          --branch ${{ inputs.BRANCH }} \
-          --pr ${{ github.event.pull_request.number }}
+          --pr ${{ github.event.pull_request.number }} \
+          --commit TODO \
+          --repository TODO \
+          --owner TODO
       env:
-        GEMINI_KEY: $${ secrets. }
+        VERSION: ${{ inputs.VERSION }}
+        GEMINI_OUTPUT_TOKENS: ${{ inputs.GEMINI_OUTPUT_TOKENS }}
+        GEMINI_MODEL: ${{ inputs.GEMINI_MODEL }}
+        GEMINI_KEY: ${{ secrets.GEMINI_KEY }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
